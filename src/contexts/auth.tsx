@@ -8,17 +8,12 @@ type SignInCredentials = {
 };
 
 type UserData = {
-  id: string;
-  name: string;
   email: string;
-  birthdate: string;
-  gender: string;
 };
 
 type AuthState = {
   user: UserData;
   token: string;
-  refreshToken: string;
 };
 
 type AuthContextState = {
@@ -32,33 +27,31 @@ const AuthContext = createContext<AuthContextState>({} as AuthContextState);
 export const AuthProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<AuthState>(() => {
     const token = localStorage.getItem('@adapto:token');
-    const refreshToken = localStorage.getItem('@adapto:refreshToken');
     const user = localStorage.getItem('@adapto:user');
 
-    if (token && refreshToken && user) {
-      return { token, refreshToken, user: JSON.parse(user) };
+    if (token && user) {
+      return { token, user: JSON.parse(user) };
     }
 
     return {} as AuthState;
   });
 
   const signIn = async (credentials: SignInCredentials) => {
-    const response = await api.post('/auth/sign-in', credentials);
+    const response = await api.post('/auth/login', credentials);
 
-    const user = response.data;
-    const token = response.headers.authorization;
-    const refreshToken = response.headers['refresh-token'];
+    const user = { email: response.data.email };
+    const { token } = response.data;
 
     localStorage.setItem('@adapto:token', token);
-    localStorage.setItem('@adapto:refreshToken', refreshToken);
     localStorage.setItem('@adapto:user', JSON.stringify(user));
 
-    setData({ token, refreshToken, user });
+    setData({ token, user });
   };
 
-  const signOut = () => {
+  const signOut = async () => {
+    await api.post('/auth/logout');
+
     localStorage.removeItem('@adapto:token');
-    localStorage.removeItem('@adapto:refreshToken');
     localStorage.removeItem('@adapto:user');
 
     setData({} as AuthState);

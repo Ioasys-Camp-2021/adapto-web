@@ -40,6 +40,9 @@
     "import/extensions": "off",
     "react/jsx-props-no-spreading": "off",
     "react/jsx-one-expression-per-line": "off",
-    "no-confusing-arrow": "off"
+    "no-confusing-arrow": "off",
+    "implicit-arrow-linebreak": "off",
+    "react/jsx-curly-newline": "off",
+    "no-param-reassign": "off"
   }
 }

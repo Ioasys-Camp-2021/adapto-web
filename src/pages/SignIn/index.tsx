@@ -39,8 +39,13 @@ export const SignIn: React.FC = () => {
       try {
         await signIn(signInCredentials);
       } catch (err) {
-        // console.log(err.response);
-        alert(err.response.data.errors.message);
+        const { status } = err.response;
+
+        if (status === 404) {
+          alert('Falha ao realizar o login (credenciais inválidas).');
+        } else {
+          alert('Falha ao realizar o login (erro interno de servidor).');
+        }
       }
     },
     [signIn],
@@ -49,10 +54,10 @@ export const SignIn: React.FC = () => {
   return (
     <Container>
       <Helmet>
-        <title>Sign In | Adapto</title>
+        <title>Login | Adapto</title>
         <meta
           name="description"
-          content="A melhor plataforma para visualizar informações sobre livros. Entre agora e descubra novas indicações de literaturas para você!"
+          content="Descrição padrão para essa tela para melhorar a indexação da página nos crawlers."
         />
       </Helmet>
 

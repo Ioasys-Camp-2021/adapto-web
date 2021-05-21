@@ -1,5 +1,3 @@
-/* eslint-disable implicit-arrow-linebreak */
-/* eslint-disable react/jsx-curly-newline */
 import React from 'react';
 import {
   Route as ReactDOMRoute,
