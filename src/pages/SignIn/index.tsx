@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
+import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/auth';
 
 import { Container } from './styles';
@@ -43,9 +44,10 @@ export const SignIn: React.FC = () => {
 
         if (status === 404) {
           alert('Falha ao realizar o login (credenciais inválidas).');
-        } else {
-          alert('Falha ao realizar o login (erro interno de servidor).');
+          return;
         }
+
+        alert('Erro interno de servidor.');
       }
     },
     [signIn],
@@ -74,6 +76,8 @@ export const SignIn: React.FC = () => {
           {isSubmitting ? 'Carregando...' : 'Send'}
         </button>
       </form>
+
+      <Link to="/register">Cadastrar</Link>
     </Container>
   );
 };
