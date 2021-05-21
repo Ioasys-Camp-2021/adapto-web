@@ -14,7 +14,7 @@ export default createGlobalStyle`
     --border: rgba(51, 51, 51, 0.2);
     --error-card: rgba(255, 255, 255, 0.4);
     --warning: #FA4462;
-    --text: #999999;
+    --text: #333;
     --primary: #B22E6F;
     --caption: #AB2680;
     --modal-background: rgba(0, 0, 0, 0.4);

@@ -1,19 +1,35 @@
-import React from 'react';
-
+import React, { useCallback } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 import { Container } from './styles';
 
-export const Home: React.FC = () => (
-  <Container>
-    <Helmet>
-      <title>Home | Adapto</title>
-      <meta
-        name="description"
-        content="A melhor plataforma para visualizar informações sobre livros. Entre agora e descubra novas indicações de literaturas para você!"
-      />
-    </Helmet>
+import { useAuth } from '../../contexts/auth';
 
-    <h1>Home</h1>
-  </Container>
-);
+export const Home: React.FC = () => {
+  const { signOut, user } = useAuth();
+
+  const handleSignOut = useCallback(async () => {
+    try {
+      await signOut();
+    } catch (err) {
+      alert('Falha ao realizar logout.');
+    }
+  }, [signOut]);
+
+  return (
+    <Container>
+      <Helmet>
+        <title>Home | Adapto</title>
+        <meta
+          name="description"
+          content="Descrição padrão para essa tela para melhorar a indexação da página nos crawlers."
+        />
+      </Helmet>
+
+      <h1>Hello, {user.email}</h1>
+      <button type="button" onClick={handleSignOut}>
+        Sign Out
+      </button>
+    </Container>
+  );
+};

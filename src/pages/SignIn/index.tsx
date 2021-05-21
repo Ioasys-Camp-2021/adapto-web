@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import { Helmet } from 'react-helmet-async';
 
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-// import { useHistory } from 'react-router-dom';
+
+import { useAuth } from '../../contexts/auth';
 
 import { Container } from './styles';
 
@@ -22,20 +23,33 @@ const signInFormSchema = yup.object().shape({
   password: yup.string().required('Senha é um campo obrigatório'),
 });
 
-export const Login: React.FC = () => {
-  // const history = useHistory();
-
+export const SignIn: React.FC = () => {
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting },
+    formState: { errors, isSubmitting },
   } = useForm<SignInFormData>({
     resolver: yupResolver(signInFormSchema),
   });
 
-  const handleSignIn: SubmitHandler<SignInFormData> = async (values) => {
-    console.log(values);
-  };
+  const { signIn } = useAuth();
+
+  const handleSignIn = useCallback(
+    async (signInCredentials) => {
+      try {
+        await signIn(signInCredentials);
+      } catch (err) {
+        const { status } = err.response;
+
+        if (status === 404) {
+          alert('Falha ao realizar o login (credenciais inválidas).');
+        } else {
+          alert('Falha ao realizar o login (erro interno de servidor).');
+        }
+      }
+    },
+    [signIn],
+  );
 
   return (
     <Container>
@@ -43,17 +57,19 @@ export const Login: React.FC = () => {
         <title>Login | Adapto</title>
         <meta
           name="description"
-          content="A melhor plataforma para visualizar informações sobre livros. Entre agora e descubra novas indicações de literaturas para você!"
+          content="Descrição padrão para essa tela para melhorar a indexação da página nos crawlers."
         />
       </Helmet>
 
       <form onSubmit={handleSubmit(handleSignIn)}>
         <input type="email" placeholder="Email" {...register('email')} />
+        {errors.email && <p>{errors.email.message}</p>}
         <input
           type="password"
           placeholder="Password"
           {...register('password')}
-        />
+        />{' '}
+        {errors.password && <p>{errors.password.message}</p>}
         <button type="submit" disabled={isSubmitting}>
           {isSubmitting ? 'Carregando...' : 'Send'}
         </button>
