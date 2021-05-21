@@ -6,7 +6,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import { Container } from './styles';
 import { api } from '../../services/api';
@@ -34,6 +34,8 @@ const signUpFormSchema = yup.object().shape({
 });
 
 export const SignUp: React.FC = () => {
+  const history = useHistory();
+
   const {
     register,
     handleSubmit,
@@ -54,6 +56,8 @@ export const SignUp: React.FC = () => {
       await api.post('/user', data);
 
       alert('Usuário criado com sucesso.');
+
+      history.push('/');
     } catch (err) {
       const { status } = err.response;
 
