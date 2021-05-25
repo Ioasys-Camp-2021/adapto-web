@@ -11,6 +11,8 @@ export const Container = styled.div`
 
   form {
     display: flex;
+    width: 100%;
+    max-width: 480px;
     flex-direction: column;
   }
 `;

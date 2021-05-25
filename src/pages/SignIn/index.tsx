@@ -7,6 +7,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 import { Link } from 'react-router-dom';
+import { Input } from '../../components/Input';
+import { Button } from '../../components/Button';
+
 import { useAuth } from '../../contexts/auth';
 
 import { Container } from './styles';
@@ -64,17 +67,32 @@ export const SignIn: React.FC = () => {
       </Helmet>
 
       <form onSubmit={handleSubmit(handleSignIn)}>
-        <input type="email" placeholder="Email" {...register('email')} />
-        {errors.email && <p>{errors.email.message}</p>}
-        <input
+        <Input
+          label="Email"
+          labelFor="email"
+          type="email"
+          placeholder="Informe seu email"
+          error={errors.email}
+          {...register('email')}
+        />
+
+        <Input
+          label="Senha"
+          labelFor="password"
           type="password"
-          placeholder="Password"
+          placeholder="Informe sua senha"
+          error={errors.password}
           {...register('password')}
-        />{' '}
-        {errors.password && <p>{errors.password.message}</p>}
-        <button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? 'Carregando...' : 'Send'}
-        </button>
+          passwordInput
+        />
+
+        <Button
+          buttonType="solid"
+          variant="primary"
+          text="Entrar"
+          isLoading={isSubmitting}
+          disabled={isSubmitting}
+        />
       </form>
 
       <Link to="/register">Cadastrar</Link>
