@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import { Helmet } from 'react-helmet-async';
 
+import { toast } from 'react-toastify';
 import { Container } from './styles';
 
 import { useAuth } from '../../contexts/auth';
@@ -12,7 +13,7 @@ export const Home: React.FC = () => {
     try {
       await signOut();
     } catch (err) {
-      alert('Falha ao realizar logout.');
+      toast.error('Falha ao realizar logout.');
     }
   }, [signOut]);
 

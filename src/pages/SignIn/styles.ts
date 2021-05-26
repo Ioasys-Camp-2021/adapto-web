@@ -10,9 +10,9 @@ export const Container = styled.div`
   justify-content: center;
 
   form {
-    display: flex;
     width: 100%;
     max-width: 480px;
+    display: flex;
     flex-direction: column;
   }
 `;

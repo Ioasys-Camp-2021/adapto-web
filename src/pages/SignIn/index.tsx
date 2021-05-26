@@ -7,6 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
 
@@ -45,12 +46,12 @@ export const SignIn: React.FC = () => {
       } catch (err) {
         const { status } = err.response;
 
-        if (status === 404) {
-          alert('Falha ao realizar o login (credenciais inválidas).');
+        if (status === 404 || status === 401) {
+          toast.error('Falha ao realizar o login (credenciais inválidas).');
           return;
         }
 
-        alert('Erro interno de servidor.');
+        toast.error('Erro interno de servidor.');
       }
     },
     [signIn],
@@ -71,7 +72,7 @@ export const SignIn: React.FC = () => {
           label="Email"
           labelFor="email"
           type="email"
-          placeholder="Informe seu email"
+          placeholder="Digite seu email"
           error={errors.email}
           {...register('email')}
         />
@@ -80,7 +81,7 @@ export const SignIn: React.FC = () => {
           label="Senha"
           labelFor="password"
           type="password"
-          placeholder="Informe sua senha"
+          placeholder="Digite sua senha"
           error={errors.password}
           {...register('password')}
           passwordInput
@@ -90,6 +91,7 @@ export const SignIn: React.FC = () => {
           buttonType="solid"
           variant="primary"
           text="Entrar"
+          type="submit"
           isLoading={isSubmitting}
           disabled={isSubmitting}
         />

@@ -55,12 +55,13 @@ export const IconButton = styled.button`
   outline: none;
   color: #858585;
 
-  margin-left: 16px;
+  margin-left: 12px;
 `;
 
 export const ErrorIcon = styled(BsFillXCircleFill)`
   font-size: 18px;
   color: var(--error-700);
+  margin-left: 12px;
 `;
 
 export const ErrorMessage = styled.span`
