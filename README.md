@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img alt="ioasys Books" title="ioasys-books" src=".github/logo.png" width="140px" />
+    <img alt="adapto" title="adapto" src=".github/logo.png" width="140px" />
 </h1>
 
 <h4 align="center">
@@ -19,7 +19,7 @@
 </p>
 
 <p align="center">
-  <img alt="ioasys Books" src=".github/layout.png" width="100%">
+  <img alt="adapto" src=".github/layout.png" width="100%">
 </p>
 
 <br />
@@ -30,7 +30,7 @@ O style guide e a aplicação foram planejados/prototipados no [Figma](https://w
 
 ## Projeto
 
-O ioasys Books é uma aplicação simples onde o usuário pode realizar login e visualizar os livros cadastrados na plataforma naquele momento. Além de visualizar uma listagem paginada de todo os livros, ele pode selecionar um desses livros e ter acesso a mais detalhes do livro escolhido.
+Aqui viria um pequeno texto para explicar o projeto e sua ideia central (conversar com a Samy a respeito desse texto).
 
 O site está no ar e pode ser acessado clicando [aqui](https://vinisilvag-ioasys.netlify.app/).
 
