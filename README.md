@@ -1,46 +1,65 @@
-# Getting Started with Create React App
+<h1 align="center">
+    <img alt="ioasys Books" title="ioasys-books" src=".github/logo.png" width="140px" />
+</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h4 align="center">
+  Adapto
+</h4>
 
-## Available Scripts
+<p align="center">
+  <img alt="License" src="https://img.shields.io/static/v1?label=license&message=MIT&color=7159c1&labelColor=000000">
+</p>
 
-In the project directory, you can run:
+<p align="center">
+  <a href="#layout">Layout</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#projeto">Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#iniciando-o-ambiente-de-desenvolvimento">Iniciando o ambiente de desenvolvimento</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#licença">Licença</a>
+</p>
 
-### `yarn start`
+<p align="center">
+  <img alt="ioasys Books" src=".github/layout.png" width="100%">
+</p>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<br />
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Layout
 
-### `yarn test`
+O style guide e a aplicação foram planejados/prototipados no [Figma](https://www.figma.com/) e podem ser acessados clicando [aqui](https://www.figma.com/file/quchlCq5P1CZdquavXEhxZ/Time-Adapto?node-id=0%3A1).
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Projeto
 
-### `yarn build`
+O ioasys Books é uma aplicação simples onde o usuário pode realizar login e visualizar os livros cadastrados na plataforma naquele momento. Além de visualizar uma listagem paginada de todo os livros, ele pode selecionar um desses livros e ter acesso a mais detalhes do livro escolhido.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+O site está no ar e pode ser acessado clicando [aqui](https://vinisilvag-ioasys.netlify.app/).
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Nota: O deploy foi feito de forma gratuita no Netlify. Por isso, pode ser que sejam encontrados alguns problemas ao longo do uso da aplicação, principalmente com relação aos processos de autenticação do usuário. Dessa forma, aconselho que, para a melhor experiência no site, o projeto seja executado localmente, através do guia da sessão de setup do [ambiente de desenvolvimento](#iniciando-o-ambiente-de-desenvolvimento).
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Tecnologias
 
-### `yarn eject`
+- [Create React App](https://pt-br.reactjs.org/docs/create-a-new-react-app.html) com [Typescript](https://www.typescriptlang.org/)
+- [styled-components](https://styled-components.com/)
+- [React Hook Form](https://react-hook-form.com/) e [Yup](https://www.npmjs.com/package/yup)
+- [React Helmet](https://www.npmjs.com/package/react-helmet-async)
+- [React Toastify](https://fkhadra.github.io/react-toastify/introduction)
+- [ESLint](https://eslint.org/) e [Prettier](https://prettier.io/)
+- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
+- [Context API](https://pt-br.reactjs.org/docs/context.html)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Iniciando o ambiente de desenvolvimento
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+git clone https://github.com/Ioasys-Camp-2021/adapto-web.git
+cd adapto-web
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+yarn
+yarn start
+# ou
+npm install
+npm run start
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Licença
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
