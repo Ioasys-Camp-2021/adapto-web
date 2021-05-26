@@ -8,28 +8,40 @@ export default createGlobalStyle`
   }
 
   :root {
-    --white: #ffffff;
-    --black: #000000;
-    --light-black: #333333;
-    --border: rgba(51, 51, 51, 0.2);
-    --error-card: rgba(255, 255, 255, 0.4);
-    --warning: #FA4462;
-    --text: #333;
-    --primary: #B22E6F;
-    --caption: #AB2680;
+    --white: #FEFEFE;
+    --black: #333333;
+
+    --caramel-100: #EDCEB3;
+    --caramel-400: #E2A365;
+    --caramel-800: #8F5B28;
+
+    --blue-100: #98B5CC;
+    --blue-500: #2A6089;
+    --blue-800: #153D5B;
+
+    --error-100: #F5C6CB;
+    --error-700: #BF2503;
+
+    --success-100: #D4EDDA;
+    --success-700: #155724;
+
+    --warning-100: #FFECCC;
+    --warning-700: #FF9A00;
+
     --modal-background: rgba(0, 0, 0, 0.4);
   }
 
   body {
     height: 100%;
-    color: var(--text);
+    color: var(--black);
+    background-color: var(--white);
   }
 
   body,
   input,
   textarea,
   button {
-    font: 400 1rem "Heebo", sans-serif;
+    font: 400 1rem "Poppins", sans-serif;
   }
 
   button {

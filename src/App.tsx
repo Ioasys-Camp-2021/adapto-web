@@ -2,6 +2,9 @@ import React from 'react';
 
 import { HelmetProvider } from 'react-helmet-async';
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { AppProvider } from './contexts';
 
 import Routes from './routes';
@@ -12,6 +15,7 @@ const App: React.FC = () => (
     <AppProvider>
       <Routes />
       <GlobalStyles />
+      <ToastContainer />
     </AppProvider>
   </HelmetProvider>
 );

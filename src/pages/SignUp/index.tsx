@@ -7,6 +7,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 import { Link, useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { Input } from '../../components/Input';
+import { Button } from '../../components/Button';
 
 import { Container } from './styles';
 import { api } from '../../services/api';
@@ -55,18 +58,18 @@ export const SignUp: React.FC = () => {
 
       await api.post('/user', data);
 
-      alert('Usuário criado com sucesso.');
+      toast.success('Usuário criado com sucesso.');
 
       history.push('/');
     } catch (err) {
       const { status } = err.response;
 
       if (status === 409) {
-        alert('Email já cadastrado na plataforma');
+        toast.error('Email já cadastrado na plataforma.');
         return;
       }
 
-      alert('Erro interno de servidor.');
+      toast.error('Erro interno de servidor.');
     }
   };
 
@@ -81,31 +84,61 @@ export const SignUp: React.FC = () => {
       </Helmet>
 
       <form onSubmit={handleSubmit(handleSignUp)}>
-        <input
+        <Input
+          label="Primeiro nome"
+          labelFor="firstName"
           type="text"
-          placeholder="First name"
+          placeholder="Digite seu primeiro nome"
+          error={errors.firstName}
           {...register('firstName')}
         />
-        {errors.firstName && <p>{errors.firstName.message}</p>}
-        <input type="text" placeholder="Last name" {...register('lastName')} />
-        {errors.lastName && <p>{errors.lastName.message}</p>}
-        <input type="email" placeholder="Email" {...register('email')} />
-        {errors.email && <p>{errors.email.message}</p>}
-        <input
+
+        <Input
+          label="Último nome"
+          labelFor="lastName"
+          type="text"
+          placeholder="Digite seu último nome"
+          error={errors.lastName}
+          {...register('lastName')}
+        />
+
+        <Input
+          label="Email"
+          labelFor="email"
+          type="email"
+          placeholder="Digite seu email"
+          error={errors.email}
+          {...register('email')}
+        />
+
+        <Input
+          label="Senha"
+          labelFor="password"
           type="password"
-          placeholder="Password"
+          placeholder="Digite sua senha"
+          error={errors.password}
           {...register('password')}
-        />{' '}
-        {errors.password && <p>{errors.password.message}</p>}
-        <input
+          passwordInput
+        />
+
+        <Input
+          label="Confirmação de senha"
+          labelFor="confirmPassword"
           type="password"
-          placeholder="Confirm password"
+          placeholder="Digite sua senha novamente"
+          error={errors.confirmPassword}
           {...register('confirmPassword')}
-        />{' '}
-        {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>}
-        <button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? 'Carregando...' : 'Send'}
-        </button>
+          passwordInput
+        />
+
+        <Button
+          buttonType="solid"
+          variant="primary"
+          text="Cadastrar"
+          type="submit"
+          isLoading={isSubmitting}
+          disabled={isSubmitting}
+        />
       </form>
 
       <Link to="/">Login</Link>

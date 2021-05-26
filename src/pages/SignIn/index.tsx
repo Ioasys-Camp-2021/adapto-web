@@ -7,6 +7,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { Input } from '../../components/Input';
+import { Button } from '../../components/Button';
+
 import { useAuth } from '../../contexts/auth';
 
 import { Container } from './styles';
@@ -42,12 +46,12 @@ export const SignIn: React.FC = () => {
       } catch (err) {
         const { status } = err.response;
 
-        if (status === 404) {
-          alert('Falha ao realizar o login (credenciais inválidas).');
+        if (status === 404 || status === 401) {
+          toast.error('Falha ao realizar o login (credenciais inválidas).');
           return;
         }
 
-        alert('Erro interno de servidor.');
+        toast.error('Erro interno de servidor.');
       }
     },
     [signIn],
@@ -64,17 +68,33 @@ export const SignIn: React.FC = () => {
       </Helmet>
 
       <form onSubmit={handleSubmit(handleSignIn)}>
-        <input type="email" placeholder="Email" {...register('email')} />
-        {errors.email && <p>{errors.email.message}</p>}
-        <input
+        <Input
+          label="Email"
+          labelFor="email"
+          type="email"
+          placeholder="Digite seu email"
+          error={errors.email}
+          {...register('email')}
+        />
+
+        <Input
+          label="Senha"
+          labelFor="password"
           type="password"
-          placeholder="Password"
+          placeholder="Digite sua senha"
+          error={errors.password}
           {...register('password')}
-        />{' '}
-        {errors.password && <p>{errors.password.message}</p>}
-        <button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? 'Carregando...' : 'Send'}
-        </button>
+          passwordInput
+        />
+
+        <Button
+          buttonType="solid"
+          variant="primary"
+          text="Entrar"
+          type="submit"
+          isLoading={isSubmitting}
+          disabled={isSubmitting}
+        />
       </form>
 
       <Link to="/register">Cadastrar</Link>
