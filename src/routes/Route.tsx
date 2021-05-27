@@ -30,7 +30,7 @@ export const Route: React.FC<RouteProps> = ({
         ) : (
           <Redirect
             to={{
-              pathname: isPrivate ? '/' : '/home',
+              pathname: isPrivate ? '/' : '/app',
               state: { from: location },
             }}
           />

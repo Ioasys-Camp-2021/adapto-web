@@ -1,36 +1,115 @@
-import React, { useCallback } from 'react';
-import { Helmet } from 'react-helmet-async';
+import React from 'react';
 
-import { toast } from 'react-toastify';
-import { Container } from './styles';
+import {
+  Wrapper,
+  Header,
+  Container,
+  Title,
+  Subtitle,
+  JobsLink,
+  DifferentialsSection,
+  DotsLeft,
+  DotsRight,
+  SectionContainer,
+  SectionTitle,
+  GridContainer,
+  FooterSection,
+  FooterContainer,
+  FooterCard,
+  FooterCardImage,
+  FooterCardText,
+  FooterCardAuthor,
+  FooterCardBottom,
+  Footer,
+} from './styles';
 
-import { useAuth } from '../../contexts/auth';
+import { Navbar } from '../../components/Navbar';
+import { DifferentialsItem } from '../../components/DifferentialsItem';
+
+import dotsLeft from '../../assets/images/dots-left.svg';
+import dotsRight from '../../assets/images/dots-right.svg';
+import quotesImg from '../../assets/icons/quotes.svg';
 
 export const Home: React.FC = () => {
-  const { signOut, user } = useAuth();
-
-  const handleSignOut = useCallback(async () => {
-    try {
-      await signOut();
-    } catch (err) {
-      toast.error('Falha ao realizar logout.');
-    }
-  }, [signOut]);
+  const differentials = [
+    {
+      id: 0,
+      iconName: 'chat.svg',
+      title: 'Diversidade',
+      content:
+        'Tenha a opção de incluir a diversidade no seu negócio. Um troca de ensino e apredizagem',
+    },
+    {
+      id: 1,
+      iconName: 'success.svg',
+      title: 'Inclusão',
+      content:
+        'Uma oportunidade para aqueles que são na maioria das vezes desfavorecidos socialmente',
+    },
+    {
+      id: 2,
+      iconName: 'hands.svg',
+      title: 'Independência',
+      content:
+        'Preste serviços de acordo com a sua área de conhecimento de forma autônoma',
+    },
+  ];
 
   return (
-    <Container>
-      <Helmet>
-        <title>Home | Adapto</title>
-        <meta
-          name="description"
-          content="Descrição padrão para essa tela para melhorar a indexação da página nos crawlers."
-        />
-      </Helmet>
+    <Wrapper>
+      <Navbar />
 
-      <h1>Hello, {user.email}</h1>
-      <button type="button" onClick={handleSignOut}>
-        Sign Out
-      </button>
-    </Container>
+      <Header>
+        <Container>
+          <Title>Apoie a diversidade</Title>
+          <Subtitle>e invista na inclusão!</Subtitle>
+          <JobsLink to="/">Ver trabalhos</JobsLink>
+        </Container>
+      </Header>
+
+      <DifferentialsSection>
+        <DotsLeft src={dotsLeft} />
+        <DotsRight src={dotsRight} />
+
+        <SectionContainer>
+          <SectionTitle>Diferenciais</SectionTitle>
+
+          <GridContainer>
+            {differentials.map((item) => (
+              <DifferentialsItem key={String(item.id)} differential={item} />
+            ))}
+          </GridContainer>
+        </SectionContainer>
+      </DifferentialsSection>
+
+      <DifferentialsSection>
+        <SectionContainer>
+          <SectionTitle>Exposição de Trabalhos</SectionTitle>
+        </SectionContainer>
+      </DifferentialsSection>
+
+      <DifferentialsSection>
+        <SectionContainer>
+          <SectionTitle>Integração com o mercado de trabalho</SectionTitle>
+        </SectionContainer>
+      </DifferentialsSection>
+
+      <FooterSection>
+        <FooterContainer>
+          <SectionTitle>Divulgue essa causa!</SectionTitle>
+
+          <FooterCard>
+            <FooterCardImage src={quotesImg} />
+            <FooterCardText>
+              O trabalho pode mudar o destino de uma família.
+            </FooterCardText>
+            <FooterCardAuthor>Stela</FooterCardAuthor>
+          </FooterCard>
+          <FooterCardBottom />
+
+          <Footer />
+        </FooterContainer>
+      </FooterSection>
+    </Wrapper>
   );
 };
