@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import { Link } from 'react-router-dom';
 import {
   Nav,
   NavContainer,
@@ -31,7 +32,10 @@ export const Navbar: React.FC = () => {
     <Nav scrolled={scrolled}>
       <NavContainer>
         <NavLeft>
-          <Logo src={adaptoLogo} alt="Adapto e Incluso" />
+          <Link to="/">
+            <Logo src={adaptoLogo} alt="Adapto e Incluso" />
+          </Link>
+
           <NavLink to="/">Sobre nós</NavLink>
           <NavLink to="/">Refugiados</NavLink>
           <NavLink to="/">Para Empresas</NavLink>
