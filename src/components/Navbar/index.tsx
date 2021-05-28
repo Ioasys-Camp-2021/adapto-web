@@ -36,7 +36,7 @@ export const Navbar: React.FC = () => {
             <Logo src={adaptoLogo} alt="Adapto e Incluso" />
           </Link>
 
-          <NavLink to="/">Sobre nós</NavLink>
+          <NavLink to="/about">Sobre nós</NavLink>
           <NavLink to="/">Refugiados</NavLink>
           <NavLink to="/">Para Empresas</NavLink>
         </NavLeft>
