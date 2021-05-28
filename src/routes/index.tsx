@@ -5,13 +5,15 @@ import { Route } from './Route';
 import { SignUp } from '../pages/SignUp';
 import { SignIn } from '../pages/SignIn';
 import { Home } from '../pages/Home';
+import { App } from '../pages/App';
 
 const Routes: React.FC = () => (
   <BrowserRouter>
     <Switch>
-      <Route path="/" component={SignIn} exact />
+      <Route path="/" component={Home} exact />
+      <Route path="/login" component={SignIn} />
       <Route path="/register" component={SignUp} />
-      <Route path="/home" component={Home} isPrivate />
+      <Route path="/app" component={App} isPrivate />
     </Switch>
   </BrowserRouter>
 );
