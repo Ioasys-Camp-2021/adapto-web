@@ -32,20 +32,13 @@ import {
   FooterCardText,
   FooterCardAuthor,
   FooterCardBottom,
-  Footer,
-  FooterItemWrapper,
-  FooterImage,
-  FooterTitle,
-  FooterContent,
-  FooterText,
-  FooterCopyright,
-  FooterLink,
-  SocialMediaLink,
 } from './styles';
 
 import { Navbar } from '../../components/Navbar';
 import { DifferentialsItem } from '../../components/DifferentialsItem';
 import { CarouselItem } from '../../components/CarouselItem';
+
+import { Footer } from '../../components/Footer';
 
 import homeImg from '../../assets/images/home.png';
 
@@ -55,12 +48,6 @@ import dotsRight from '../../assets/images/dots-right.svg';
 import quotesImg from '../../assets/icons/quotes.svg';
 
 import laborMarketImg from '../../assets/images/labor-market.svg';
-
-import linkedinImg from '../../assets/icons/linkedin.svg';
-import instagramImg from '../../assets/icons/instagram.svg';
-import facebookImg from '../../assets/icons/facebook.svg';
-
-import adaptoLogo from '../../assets/images/adapto-logo.svg';
 
 export const Home: React.FC = () => {
   const differentials = [
@@ -175,63 +162,7 @@ export const Home: React.FC = () => {
           </FooterCard>
           <FooterCardBottom />
 
-          <Footer>
-            <FooterItemWrapper>
-              <FooterImage src={adaptoLogo} />
-
-              <FooterContent>
-                Uma ação voluntária que ajuda refugiados e imigrantes.
-              </FooterContent>
-
-              <FooterCopyright>© Copyright Adapto</FooterCopyright>
-            </FooterItemWrapper>
-
-            <FooterItemWrapper>
-              <FooterTitle>Feature</FooterTitle>
-
-              <FooterLink to="/">Home</FooterLink>
-              <FooterLink to="/">Sobre nós</FooterLink>
-              <FooterLink to="/">Refugiados</FooterLink>
-              <FooterLink to="/">Para Empresas</FooterLink>
-              <FooterLink to="/register">Criar conta</FooterLink>
-              <FooterLink to="/login">Entrar</FooterLink>
-            </FooterItemWrapper>
-
-            <FooterItemWrapper>
-              <FooterTitle>Contato</FooterTitle>
-
-              <FooterText>contato@adapto.com</FooterText>
-              <FooterText>+55 0000-0000</FooterText>
-            </FooterItemWrapper>
-
-            <FooterItemWrapper>
-              <FooterTitle>Nossas redes sociais</FooterTitle>
-
-              <SocialMediaLink
-                href="https://www.instagram.com/"
-                target="_blank"
-              >
-                <img src={linkedinImg} alt="LinkedIn" />
-                adapto-e-incluso
-              </SocialMediaLink>
-
-              <SocialMediaLink
-                href="https://www.instagram.com/"
-                target="_blank"
-              >
-                <img src={instagramImg} alt="Instagram" />
-                @adaptoeincluso
-              </SocialMediaLink>
-
-              <SocialMediaLink
-                href="https://www.instagram.com/"
-                target="_blank"
-              >
-                <img src={facebookImg} alt="Facebook" />
-                @adaptoeincluso
-              </SocialMediaLink>
-            </FooterItemWrapper>
-          </Footer>
+          <Footer />
         </FooterContainer>
       </FooterSection>
     </Wrapper>
