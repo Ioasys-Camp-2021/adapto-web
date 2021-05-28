@@ -24,6 +24,11 @@ export const Container = styled.div`
   @media (max-width: 1120px) {
     padding: 0 2rem;
   }
+
+  @media (max-width: 1070px) {
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 export const Title = styled.h1`
@@ -35,16 +40,25 @@ export const Title = styled.h1`
   line-height: 4.5rem;
   margin-bottom: 0.5rem;
 
-  @media (max-width: 480px) {
-    width: auto;
-    max-width: auto;
-    font-size: 3rem;
-    line-height: 3.5rem;
+  @media (max-width: 1070px) {
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
   }
 
-  @media (max-width: 350px) {
+  @media (max-width: 455px) {
+    font-size: 3.4rem;
+    line-height: 3.8rem;
+  }
+
+  @media (max-width: 380px) {
+    font-size: 2.6rem;
+    line-height: 2.8rem;
+  }
+
+  @media (max-width: 320px) {
     font-size: 2.2rem;
-    line-height: 2.6rem;
+    line-height: 2.4rem;
   }
 `;
 
@@ -54,9 +68,13 @@ export const Subtitle = styled.span`
   color: var(--caramel-800);
   margin-bottom: 2rem;
 
+  @media (max-width: 1070px) {
+    text-align: center;
+  }
+
   @media (max-width: 350px) {
-    font-size: 1.6rem;
-    line-height: 2rem;
+    font-size: 1.4rem;
+    line-height: 1.8rem;
   }
 `;
 
@@ -102,7 +120,7 @@ export const DifferentialsSection = styled.section`
 export const DotsLeft = styled.img`
   position: absolute;
   pointer-events: none;
-  top: 4rem;
+  top: 12rem;
   left: 0;
 
   @media (max-width: 640px) {
@@ -113,7 +131,7 @@ export const DotsLeft = styled.img`
 export const DotsRight = styled.img`
   position: absolute;
   pointer-events: none;
-  bottom: -6rem;
+  bottom: -8rem;
   right: 0;
   z-index: 10;
 
