@@ -1,3 +1,5 @@
+/* eslint-disable global-require */
+/* eslint-disable import/no-dynamic-require */
 import React from 'react';
 
 import { Container, Icon, IconImage, Title, Content } from './styles';
@@ -13,14 +15,18 @@ type DifferentialItemData = {
 
 export const DifferentialsItem: React.FC<DifferentialItemData> = ({
   differential: { iconName, title, content },
-}) => (
-  <Container>
-    <Icon>
-      <IconImage src={iconName} />
-    </Icon>
+}) => {
+  const image = require(`../../assets/icons/${iconName}.svg`);
 
-    <Title>{title}</Title>
+  return (
+    <Container>
+      <Icon>
+        <IconImage src={image.default} />
+      </Icon>
 
-    <Content>{content}</Content>
-  </Container>
-);
+      <Title>{title}</Title>
+
+      <Content>{content}</Content>
+    </Container>
+  );
+};

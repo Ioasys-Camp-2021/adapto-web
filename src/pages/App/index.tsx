@@ -20,7 +20,7 @@ export const App: React.FC = () => {
   return (
     <Container>
       <Helmet>
-        <title>Home | Adapto</title>
+        <title>App | Adapto</title>
         <meta
           name="description"
           content="Descrição padrão para essa tela para melhorar a indexação da página nos crawlers."

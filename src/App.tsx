@@ -5,6 +5,9 @@ import { HelmetProvider } from 'react-helmet-async';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+// import '~slick-carousel/slick/slick.css';
+// import '~slick-carousel/slick/slick-theme.css';
+
 import { AppProvider } from './contexts';
 
 import Routes from './routes';

@@ -18,16 +18,18 @@ export const Icon = styled.div`
   justify-content: center;
 `;
 
-export const IconImage = styled.img``;
+export const IconImage = styled.img`
+  pointer-events: none;
+`;
 
 export const Title = styled.h3`
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   font-weight: 600;
   margin-top: 1rem;
 `;
 
 export const Content = styled.p`
-  font-size: 1rem;
+  font-size: 1.1rem;
   margin-top: 0.4rem;
   text-align: center;
   line-height: 24px;
