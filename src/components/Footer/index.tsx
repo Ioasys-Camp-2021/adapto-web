@@ -34,7 +34,7 @@ export const Footer: React.FC = () => (
       <FooterTitle>Feature</FooterTitle>
 
       <FooterLink to="/">Home</FooterLink>
-      <FooterLink to="/">Sobre nós</FooterLink>
+      <FooterLink to="/about">Sobre nós</FooterLink>
       <FooterLink to="/">Refugiados</FooterLink>
       <FooterLink to="/">Para Empresas</FooterLink>
       <FooterLink to="/register">Criar conta</FooterLink>
