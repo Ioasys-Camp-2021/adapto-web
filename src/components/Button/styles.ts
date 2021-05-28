@@ -8,6 +8,10 @@ export const StyledButton = styled.button<{
   width: 100%;
   height: 54px;
 
+  font-weight: 500;
+
+  font-size: 1.1rem;
+
   margin-top: 4px;
   border-radius: 16px;
   border: ${(props) =>
