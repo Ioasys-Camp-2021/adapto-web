@@ -37,6 +37,7 @@ export const TextInput = styled.input`
   width: 100%;
   border: none;
   outline: none;
+  background-color: transparent;
 `;
 
 export const IconButton = styled.button`

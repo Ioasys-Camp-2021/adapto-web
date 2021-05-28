@@ -6,14 +6,28 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
 
 import { useAuth } from '../../contexts/auth';
 
-import { Container } from './styles';
+import {
+  Wrapper,
+  Container,
+  Card,
+  Title,
+  FooterSection,
+  FooterContainer,
+  LineContainer,
+  Line,
+  LineText,
+  SignUpContainer,
+  SignUpButton,
+} from './styles';
+
+import { Navbar } from '../../components/Navbar';
+import { Footer } from '../../components/Footer';
 
 type SignInFormData = {
   email: string;
@@ -58,46 +72,68 @@ export const SignIn: React.FC = () => {
   );
 
   return (
-    <Container>
-      <Helmet>
-        <title>Login | Adapto</title>
-        <meta
-          name="description"
-          content="Descrição padrão para essa tela para melhorar a indexação da página nos crawlers."
-        />
-      </Helmet>
+    <Wrapper>
+      <Navbar />
+      <Container>
+        <Helmet>
+          <title>Login | Adapto</title>
+          <meta
+            name="description"
+            content="Descrição padrão para essa tela para melhorar a indexação da página nos crawlers."
+          />
+        </Helmet>
 
-      <form onSubmit={handleSubmit(handleSignIn)}>
-        <Input
-          label="Email"
-          labelFor="email"
-          type="email"
-          placeholder="Digite seu email"
-          error={errors.email}
-          {...register('email')}
-        />
+        <Card>
+          <Title>Entrar</Title>
 
-        <Input
-          label="Senha"
-          labelFor="password"
-          type="password"
-          placeholder="Digite sua senha"
-          error={errors.password}
-          {...register('password')}
-          passwordInput
-        />
+          <form onSubmit={handleSubmit(handleSignIn)}>
+            <Input
+              label="Email"
+              labelFor="email"
+              type="email"
+              placeholder="Digite seu email"
+              error={errors.email}
+              {...register('email')}
+            />
 
-        <Button
-          buttonType="solid"
-          variant="primary"
-          text="Entrar"
-          type="submit"
-          isLoading={isSubmitting}
-          disabled={isSubmitting}
-        />
-      </form>
+            <Input
+              label="Senha"
+              labelFor="password"
+              type="password"
+              placeholder="Digite sua senha"
+              error={errors.password}
+              {...register('password')}
+              passwordInput
+            />
 
-      <Link to="/register">Cadastrar</Link>
-    </Container>
+            <Button
+              buttonType="solid"
+              variant="primary"
+              text="Entrar"
+              type="submit"
+              isLoading={isSubmitting}
+              disabled={isSubmitting}
+              style={{ marginTop: '2rem' }}
+            />
+          </form>
+
+          <LineContainer>
+            <Line />
+            <LineText>ou</LineText>
+            <Line />
+          </LineContainer>
+
+          <SignUpContainer>
+            <SignUpButton to="/register">Criar minha conta</SignUpButton>
+          </SignUpContainer>
+        </Card>
+      </Container>
+
+      <FooterSection>
+        <FooterContainer>
+          <Footer />
+        </FooterContainer>
+      </FooterSection>
+    </Wrapper>
   );
 };

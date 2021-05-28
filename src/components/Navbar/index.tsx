@@ -18,7 +18,7 @@ export const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
 
   const handleChangeBackgroundColor = () => {
-    if (window.scrollY <= 78) {
+    if (window.scrollY <= 0) {
       setScrolled(false);
     } else {
       setScrolled(true);
