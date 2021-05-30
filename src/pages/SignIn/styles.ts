@@ -40,10 +40,16 @@ export const Card = styled.main`
 `;
 
 export const Title = styled.h1`
-  font-size: 2.4rem;
+  font-size: 2.2rem;
   font-weight: 500;
   color: var(--black);
   margin-bottom: 1.5rem;
+`;
+
+export const ForgotPassword = styled.button`
+  background-color: transparent;
+  border: none;
+  text-decoration: underline;
 `;
 
 export const LineContainer = styled.div`
@@ -56,7 +62,7 @@ export const LineContainer = styled.div`
 
 export const Line = styled.div`
   width: 140px;
-  height: 1.5px;
+  height: 1px;
   background-color: var(--caramel-800);
 `;
 

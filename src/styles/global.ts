@@ -44,6 +44,10 @@ export default createGlobalStyle`
     font: 400 1rem "Poppins", sans-serif;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   button {
     cursor: pointer;
   }
