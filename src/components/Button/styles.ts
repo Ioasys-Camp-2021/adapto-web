@@ -18,7 +18,7 @@ export const StyledButton = styled.button<{
     props.buttonType === 'outline'
       ? props.variant === 'secondary'
         ? 'solid 1px var(--blue-500)'
-        : 'solid 1px var(--caramel-400)'
+        : 'solid 1px var(--caramel-800)'
       : 'none'};
   background-color: ${(props) =>
     props.buttonType === 'solid'
@@ -34,7 +34,7 @@ export const StyledButton = styled.button<{
         : 'var(--black)'
       : props.variant === 'secondary'
       ? 'var(--blue-500)'
-      : 'var(--caramel-400)'};
+      : 'var(--caramel-800)'};
 
   outline: none;
 
