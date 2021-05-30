@@ -1,4 +1,9 @@
-import React, { useState, InputHTMLAttributes } from 'react';
+import React, {
+  useState,
+  InputHTMLAttributes,
+  forwardRef,
+  ForwardRefRenderFunction,
+} from 'react';
 
 import { FieldError } from 'react-hook-form';
 import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs';
@@ -20,25 +25,21 @@ type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   passwordInput?: boolean;
 };
 
-export const Input: React.FC<InputProps> = ({
-  label,
-  labelFor,
-  icon,
-  error,
-  passwordInput,
-  style,
-  ...rest
-}) => {
+const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
+  { label, labelFor, icon, error, passwordInput, ...rest },
+  ref,
+) => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <Wrapper style={style}>
+    <Wrapper>
       {!!label && <Label htmlFor={labelFor}>{label}</Label>}
 
       <Container hasError={!!error}>
         <TextInput
           id={labelFor}
           {...rest}
+          ref={ref}
           type={passwordInput && !showPassword ? 'password' : 'text'}
         />
 
@@ -62,3 +63,5 @@ export const Input: React.FC<InputProps> = ({
     </Wrapper>
   );
 };
+
+export const Input = forwardRef(InputBase);

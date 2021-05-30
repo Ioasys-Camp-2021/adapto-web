@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -42,6 +42,7 @@ export const Modal: React.FC<ModalProps> = ({
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<ForgotPasswordFormData>({
     resolver: yupResolver(forgotPasswordFormSchema),
@@ -55,6 +56,8 @@ export const Modal: React.FC<ModalProps> = ({
       });
 
       toast.success('Email de recuperação de senha enviado com sucesso.');
+
+      toggleModalFunction();
     } catch (err) {
       const { status } = err.response;
 
@@ -66,6 +69,10 @@ export const Modal: React.FC<ModalProps> = ({
       toast.error('Erro interno de servidor.');
     }
   }, []);
+
+  useEffect(() => {
+    reset();
+  }, [modalIsOpen]);
 
   return (
     <Container modalIsOpen={modalIsOpen}>

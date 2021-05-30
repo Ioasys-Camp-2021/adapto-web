@@ -158,6 +158,7 @@ export const SignUp: React.FC = () => {
                   type="submit"
                   isLoading={isSubmitting}
                   disabled={isSubmitting}
+                  style={{ marginTop: '2rem' }}
                 />
               </form>
 

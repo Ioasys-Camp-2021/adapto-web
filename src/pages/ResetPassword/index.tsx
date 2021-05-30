@@ -7,9 +7,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 import queryString from 'query-string';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
-// import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
 
@@ -24,6 +24,7 @@ import {
 
 import { Navbar } from '../../components/Navbar';
 import { Footer } from '../../components/Footer';
+import { api } from '../../services/api';
 
 type ResetPasswordFormData = {
   password: string;
@@ -39,10 +40,10 @@ const resetPasswordFormSchema = yup.object().shape({
 });
 
 export const ResetPassword: React.FC = () => {
+  const history = useHistory();
+
   const { search } = useLocation();
   const { token, email } = queryString.parse(search);
-
-  console.log(token, email);
 
   const {
     register,
@@ -53,19 +54,33 @@ export const ResetPassword: React.FC = () => {
   });
 
   const handleChangePassword = useCallback(async (values) => {
-    console.log(values);
-    // try {
-    //   await signIn(signInCredentials);
-    // } catch (err) {
-    //   const { status } = err.response;
+    try {
+      await api.patch(
+        '/user/reset-password',
+        { password: values.password, confirmPass: values.confirmPassword },
+        {
+          params: {
+            token,
+            email,
+          },
+        },
+      );
 
-    //   if (status === 404 || status === 401) {
-    //     toast.error('Falha ao realizar o login (credenciais inválidas).');
-    //     return;
-    //   }
+      toast.success('Senha alterada com sucesso.');
 
-    //   toast.error('Erro interno de servidor.');
-    // }
+      history.push('/login');
+    } catch (err) {
+      const { status } = err.response;
+
+      if (status === 401 || status === 404) {
+        toast.error(
+          'Falha ao redefinir a senha de usuário. (email inválido ou token já expirado)',
+        );
+        return;
+      }
+
+      toast.error('Erro interno de servidor.');
+    }
   }, []);
 
   return (
