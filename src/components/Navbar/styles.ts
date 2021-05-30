@@ -96,3 +96,28 @@ export const LoginButton = styled(Link)`
     display: none;
   }
 `;
+
+export const SignOutButton = styled.button`
+  width: 140px;
+  height: 48px;
+  border-radius: 1rem;
+  background-color: transparent;
+
+  color: var(--caramel-800);
+  border: 1px solid var(--caramel-800);
+
+  font-size: 1.1rem;
+  font-weight: 500;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:focus {
+    border: 1px solid var(--caramel-800);
+  }
+
+  @media (max-width: 990px) {
+    display: none;
+  }
+`;

@@ -11,8 +11,8 @@ import { App } from '../pages/App';
 const Routes: React.FC = () => (
   <BrowserRouter>
     <Switch>
-      <Route path="/" component={Home} exact />
-      <Route path="/about" component={About} />
+      <Route path="/" component={Home} exact isPublic />
+      <Route path="/about" component={About} isPublic />
       <Route path="/login" component={SignIn} />
       <Route path="/register" component={SignUp} />
       <Route path="/app" component={App} isPrivate />

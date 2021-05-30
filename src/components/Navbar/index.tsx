@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import {
   Nav,
   NavContainer,
@@ -9,13 +10,17 @@ import {
   Logo,
   NavLink,
   LoginButton,
+  SignOutButton,
   SearchIcon,
 } from './styles';
+
+import { useAuth } from '../../contexts/auth';
 
 import adaptoLogo from '../../assets/images/adapto-logo.svg';
 import searchIcon from '../../assets/icons/search.svg';
 
 export const Navbar: React.FC = () => {
+  const { signOut, user } = useAuth();
   const [scrolled, setScrolled] = useState(false);
 
   const handleChangeBackgroundColor = () => {
@@ -27,6 +32,16 @@ export const Navbar: React.FC = () => {
   };
 
   window.addEventListener('scroll', handleChangeBackgroundColor);
+
+  const handleSignOut = useCallback(async () => {
+    try {
+      await signOut();
+
+      toast.success('Logout realizado com sucesso.');
+    } catch (err) {
+      toast.error('Falha ao realizar logout.');
+    }
+  }, [signOut]);
 
   return (
     <Nav scrolled={scrolled}>
@@ -43,8 +58,17 @@ export const Navbar: React.FC = () => {
 
         <NavRight>
           <SearchIcon src={searchIcon} />
-          <NavLink to="/register">Criar conta</NavLink>
-          <LoginButton to="/login">Entrar</LoginButton>
+          {user ? (
+            <>
+              <NavLink to="/profilename">Meu perfil</NavLink>
+              <SignOutButton onClick={handleSignOut}>Sair</SignOutButton>
+            </>
+          ) : (
+            <>
+              <NavLink to="/register">Criar conta</NavLink>
+              <LoginButton to="/login">Entrar</LoginButton>
+            </>
+          )}
         </NavRight>
       </NavContainer>
     </Nav>
