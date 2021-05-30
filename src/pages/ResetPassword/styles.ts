@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 
 import backgroundImage from '../../assets/images/login.png';
 
@@ -44,20 +43,6 @@ export const Title = styled.h1`
   font-weight: 500;
   color: var(--black);
   margin-bottom: 1.5rem;
-`;
-
-export const Text = styled.p`
-  margin-top: -1rem;
-`;
-
-export const SignInContainer = styled.div`
-  text-align: center;
-  margin-top: 2rem;
-`;
-
-export const SignInButton = styled(Link)`
-  text-decoration: underline;
-  font-weight: 500;
 `;
 
 export const FooterSection = styled.div`

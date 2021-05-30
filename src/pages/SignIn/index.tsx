@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 
 import { Helmet } from 'react-helmet-async';
 
@@ -17,6 +17,7 @@ import {
   Container,
   Card,
   Title,
+  ForgotPassword,
   FooterSection,
   FooterContainer,
   LineContainer,
@@ -28,6 +29,7 @@ import {
 
 import { Navbar } from '../../components/Navbar';
 import { Footer } from '../../components/Footer';
+import { Modal } from '../../components/Modal';
 
 type SignInFormData = {
   email: string;
@@ -43,6 +45,8 @@ const signInFormSchema = yup.object().shape({
 });
 
 export const SignIn: React.FC = () => {
+  const [showModal, setShowModal] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -71,12 +75,16 @@ export const SignIn: React.FC = () => {
     [signIn],
   );
 
+  const handleForgotPassword = () => {
+    setShowModal(!showModal);
+  };
+
   return (
     <Wrapper>
       <Navbar />
       <Container>
         <Helmet>
-          <title>Login | Adapto</title>
+          <title>Entrar | Adapto</title>
           <meta
             name="description"
             content="Descrição padrão para essa tela para melhorar a indexação da página nos crawlers."
@@ -104,7 +112,12 @@ export const SignIn: React.FC = () => {
               error={errors.password}
               {...register('password')}
               passwordInput
+              style={{ marginBottom: '0.4rem' }}
             />
+
+            <ForgotPassword type="button" onClick={handleForgotPassword}>
+              Esqueci minha senha
+            </ForgotPassword>
 
             <Button
               buttonType="solid"
@@ -134,6 +147,11 @@ export const SignIn: React.FC = () => {
           <Footer />
         </FooterContainer>
       </FooterSection>
+
+      <Modal
+        modalIsOpen={showModal}
+        toggleModalFunction={handleForgotPassword}
+      />
     </Wrapper>
   );
 };

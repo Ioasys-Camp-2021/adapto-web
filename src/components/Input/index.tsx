@@ -26,12 +26,13 @@ export const Input: React.FC<InputProps> = ({
   icon,
   error,
   passwordInput,
+  style,
   ...rest
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <Wrapper>
+    <Wrapper style={style}>
       {!!label && <Label htmlFor={labelFor}>{label}</Label>}
 
       <Container hasError={!!error}>
