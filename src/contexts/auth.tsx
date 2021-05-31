@@ -8,7 +8,10 @@ type SignInCredentials = {
 };
 
 type UserData = {
+  id: number;
   email: string;
+  fullName: string;
+  role: string;
 };
 
 type AuthState = {
@@ -39,7 +42,12 @@ export const AuthProvider: React.FC = ({ children }) => {
   const signIn = async (credentials: SignInCredentials) => {
     const response = await api.post('/auth/login', credentials);
 
-    const user = { email: response.data.email };
+    const user = {
+      id: response.data.id,
+      email: response.data.email,
+      fullName: response.data.fullName,
+      role: response.data.role === 1 ? 'refugee' : 'business',
+    };
     const { token } = response.data;
 
     localStorage.setItem('@adapto:token', token);

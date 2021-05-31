@@ -60,6 +60,7 @@ export const ProfileImage = styled.img`
 
 export const ProfileDetails = styled.div`
   position: absolute;
+  margin-top: 0.5rem;
 `;
 
 export const NameContainer = styled.div`
@@ -88,25 +89,25 @@ export const EditIcon = styled(MdEdit)`
 `;
 
 export const ChatBubble = styled(MdChatBubble)`
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   margin-right: 0.8rem;
   color: var(--caramel-800);
 `;
 
 export const Mail = styled(MdMail)`
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   margin-right: 0.8rem;
   color: var(--caramel-800);
 `;
 
 export const Work = styled(MdWork)`
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   margin-right: 0.8rem;
   color: var(--caramel-800);
 `;
 
 export const LocationOn = styled(MdLocationOn)`
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   margin-right: 0.8rem;
   color: var(--caramel-800);
 `;
@@ -118,6 +119,13 @@ export const Function = styled.span`
 export const TabsContainer = styled.div`
   margin-bottom: 2.2rem;
   margin-left: 2rem;
+
+  @media (max-width: 907px) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+  }
 `;
 
 export const TabItem = styled.span<{ active?: boolean }>`
@@ -193,6 +201,62 @@ export const Input = styled.input`
   background-color: transparent;
 `;
 
+export const DataContainer = styled.div`
+  width: 100%;
+  border: 1px solid #bbbbbb;
+  background-color: #fefefe;
+  border-radius: 16px;
+  padding: 1.2rem 1.4rem;
+`;
+
+export const DataTitle = styled.span`
+  text-transform: uppercase;
+  font-weight: 500;
+`;
+
+export const BigText = styled.p`
+  line-height: 1.4rem;
+  margin-top: 0.3rem;
+`;
+
+export const DataText = styled.p`
+  line-height: 1.4rem;
+`;
+
+export const RowData = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  margin-top: 1rem;
+`;
+
+export const SocialMediaContainer = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+`;
+
+export const SocialMediaLogo = styled.img`
+  margin-right: 0.6rem;
+  width: 1.2rem;
+  height: 1.2rem;
+`;
+
+export const SocialMediaLink = styled.a`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  padding: 1.4rem;
+  background-color: #fefefe;
+  border: 1px solid #bbbbbb;
+
+  color: #696969;
+
+  font-weight: 500;
+`;
+
 export const AddJob = styled.button`
   border: 1px dashed #bbbbbb;
   outline: none;
@@ -231,9 +295,28 @@ export const SaveContainer = styled.div`
   flex-direction: row;
 `;
 
+export const ErrorContainer = styled.div`
+  width: 100%;
+  height: 700px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const ErrorMessage = styled.h1`
+  margin-top: 80px;
+  font-weight: 500;
+  font-size: 1.8rem;
+`;
+
 export const FooterSection = styled.div`
-  margin-top: -9rem;
+  margin-top: -8rem;
   background: linear-gradient(180deg, #f3f3f3 0%, #ffe6ce 100%);
+
+  @media (max-width: 840px) {
+    margin-top: -3.5rem;
+  }
 `;
 
 export const FooterContainer = styled.div`

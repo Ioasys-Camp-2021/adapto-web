@@ -56,15 +56,17 @@ export const Navbar: React.FC<NavbarProps> = ({ solid = false }) => {
           </Link>
 
           <NavLink to="/about">Sobre nós</NavLink>
-          <NavLink to="/">Refugiados</NavLink>
-          <NavLink to="/">Para Empresas</NavLink>
+          <NavLink to="/">Portfólio</NavLink>
+          <NavLink to="/jobs">Vagas</NavLink>
         </NavLeft>
 
         <NavRight>
           <SearchIcon src={searchIcon} />
           {user ? (
             <>
-              <NavLink to="/profilename">Meu perfil</NavLink>
+              <NavLink to={`/${user?.role}/profile/${user?.id}`}>
+                Meu perfil
+              </NavLink>
               <SignOutButton onClick={handleSignOut}>Sair</SignOutButton>
             </>
           ) : (

@@ -32,18 +32,38 @@ import {
   Work,
   LocationOn,
   Textarea,
+  DataContainer,
+  RowData,
+  DataTitle,
+  BigText,
+  DataText,
   AddJob,
   AddJobIcon,
   AddJobText,
   SaveContainer,
   FooterSection,
   FooterContainer,
+  SocialMediaLink,
+  SocialMediaLogo,
+  SocialMediaContainer,
+  ErrorContainer,
+  ErrorMessage,
 } from './styles';
 import { Button } from '../../components/Button';
 
 import { api } from '../../services/api';
+import { ProfileModal } from '../../components/ProfileModal';
+import { useAuth } from '../../contexts/auth';
+
+import linkedinIcon from '../../assets/icons/linkedinCaramel.svg';
+import instagramIcon from '../../assets/icons/instagramCaramel.svg';
+import facebookIcon from '../../assets/icons/facebookCaramel.svg';
+import websiteIcon from '../../assets/icons/webCaramel.svg';
 
 type UserFormData = {
+  fullName: string;
+  title: string;
+
   bio: string;
   location: string;
   languages: string;
@@ -88,7 +108,12 @@ const userFormSchema = yup.object().shape({});
 
 export const RefugeeProfile: React.FC = () => {
   const { id } = useParams<ParamsProps>();
+  const [showModal, setShowModal] = useState(false);
   const [user, setUser] = useState<UserData>();
+
+  const [error, setError] = useState('');
+
+  const { user: storedUser } = useAuth();
 
   const [toogleState, setToogleState] = useState(1);
   const [editing, setEditing] = useState(false);
@@ -102,25 +127,43 @@ export const RefugeeProfile: React.FC = () => {
     resolver: yupResolver(userFormSchema),
   });
 
+  const toggleModal = () => {
+    setShowModal(!showModal);
+  };
+
   const loadUserData = async () => {
     try {
       const response = await api.get(`/refugee/${id}`);
 
       if (response.data.length === 0) {
+        setError('Não foi possível encontrar esse refugiado.');
         toast.error('Refugiado não encontrado.');
       } else {
-        setUser(response.data[0]);
+        setError('');
 
-        setValue('bio', user ? user?.bio : '');
-        setValue('location', user ? user?.location : '');
-        setValue('languages', user ? user?.languages : '');
-        setValue('jobModality', user ? user?.job_modality : '');
-        setValue('contact', user ? user?.contact : '');
+        const currentuser = response.data[0];
+        setUser(currentuser);
 
-        setValue('workExperience', user ? user.work_experiences : '');
+        setValue('title', currentuser ? currentuser.title : '');
+
+        setValue('bio', currentuser ? currentuser.bio : '');
+        setValue('location', currentuser ? currentuser.location : '');
+        setValue('languages', currentuser ? currentuser.languages : '');
+        setValue('jobModality', currentuser ? currentuser.job_modality : '');
+        setValue('contact', currentuser ? currentuser.contact : '');
+
+        setValue(
+          'workExperience',
+          currentuser ? currentuser.work_experiences : '',
+        );
+
+        setValue('linkedin', currentuser ? currentuser.linkedin : '');
+        setValue('instagram', currentuser ? currentuser.instagram : '');
+        setValue('facebook', currentuser ? currentuser.facebook : '');
+        setValue('website', currentuser ? currentuser.website : '');
       }
     } catch (err) {
-      console.log(err);
+      setError('Não foi possível encontrar esse refugiado.');
       toast.error('Falha ao buscar os dados desse refugiado.');
     }
   };
@@ -130,207 +173,350 @@ export const RefugeeProfile: React.FC = () => {
   }, []);
 
   const handleChangeData = useCallback(async (values) => {
-    console.log(values);
+    const data = {
+      fullName: values.fullname ? values.fullName : '',
+      title: values.title ? values.title : '',
+      bio: values.bio ? values.bio : '',
+      location: values.location ? values.location : '',
+      languages: values.languages ? values.languages : '',
+      job_modality: values.jobModality ? values.jobModality : '',
+      contact: values.contact ? values.contact : '',
+      work_experiences: values.workExperience ? values.workExperience : '',
+      linkedin: values.linkedin ? values.linkedin : '',
+      instagram: values.instagram ? values.instagram : '',
+      facebook: values.facebook ? values.facebook : '',
+      website: values.website ? values.website : '',
+    };
+
+    try {
+      await api.put('/refugee', data);
+
+      setEditing(false);
+
+      toast.success('Dados atualizados com sucesso.');
+
+      loadUserData();
+    } catch (err) {
+      toast.error('Falha ao atualizar os dados. Tente novamente.');
+    }
   }, []);
 
   return (
     <Wrapper>
       <Navbar solid />
 
-      <BackgroundImage>
-        <Container>
-          <HeaderContainer>
-            <ProfileContainer>
-              <ProfileImage />
-              <ProfileDetails>
-                <NameContainer>
-                  <Name>{user?.User.fullName}</Name>
-                  {!editing && (
-                    <EditInfoButton
-                      type="button"
-                      onClick={() => setEditing(true)}
-                    >
-                      <EditIcon />
-                    </EditInfoButton>
-                  )}
-                </NameContainer>
-                <Function>{user?.title}</Function>
-              </ProfileDetails>
-            </ProfileContainer>
+      {error ? (
+        <ErrorContainer>
+          <ErrorMessage>{error}</ErrorMessage>
+        </ErrorContainer>
+      ) : (
+        <>
+          <BackgroundImage>
+            <Container>
+              <HeaderContainer>
+                <ProfileContainer>
+                  <ProfileImage />
+                  <ProfileDetails>
+                    <NameContainer>
+                      {editing ? (
+                        <InputContainer>
+                          <Input
+                            type="text"
+                            placeholder="Nome"
+                            disabled={!editing}
+                            {...register('fullName')}
+                          />
+                        </InputContainer>
+                      ) : (
+                        <Name>{user?.User.fullName}</Name>
+                      )}
+                      {!editing && (
+                        <>
+                          {storedUser?.id === Number(id) && (
+                            <EditInfoButton
+                              type="button"
+                              onClick={() => setEditing(true)}
+                            >
+                              <EditIcon />
+                            </EditInfoButton>
+                          )}
+                        </>
+                      )}
+                    </NameContainer>
+                    {editing ? (
+                      <InputContainer>
+                        <Input
+                          type="text"
+                          placeholder="Título"
+                          disabled={!editing}
+                          {...register('title')}
+                        />
+                      </InputContainer>
+                    ) : (
+                      <Function>{user?.title}</Function>
+                    )}
+                  </ProfileDetails>
+                </ProfileContainer>
 
-            <TabsContainer>
-              <TabItem
-                active={toogleState === 1}
-                onClick={() => setToogleState(1)}
-              >
-                Sobre
-              </TabItem>
-              <TabItem
-                active={toogleState === 2}
-                onClick={() => setToogleState(2)}
-              >
-                Experiência profissional
-              </TabItem>
-              <TabItem
-                active={toogleState === 3}
-                onClick={() => setToogleState(3)}
-              >
-                Trabalhos
-              </TabItem>
-              <TabItem
-                active={toogleState === 4}
-                onClick={() => setToogleState(4)}
-              >
-                Redes Sociais
-              </TabItem>
-            </TabsContainer>
-          </HeaderContainer>
-        </Container>
-      </BackgroundImage>
+                <TabsContainer>
+                  <TabItem
+                    active={toogleState === 1}
+                    onClick={() => setToogleState(1)}
+                  >
+                    Sobre
+                  </TabItem>
+                  <TabItem
+                    active={toogleState === 2}
+                    onClick={() => setToogleState(2)}
+                  >
+                    Experiência profissional
+                  </TabItem>
+                  <TabItem
+                    active={toogleState === 3}
+                    onClick={() => setToogleState(3)}
+                  >
+                    Trabalhos
+                  </TabItem>
+                  <TabItem
+                    active={toogleState === 4}
+                    onClick={() => setToogleState(4)}
+                  >
+                    Redes Sociais
+                  </TabItem>
+                </TabsContainer>
+              </HeaderContainer>
+            </Container>
+          </BackgroundImage>
 
-      <Container style={{ marginTop: '12rem' }}>
-        <TabContent active={toogleState === 1}>
-          <form onSubmit={handleSubmit(handleChangeData)}>
-            <Textarea
-              placeholder="Escreva algo sobre você"
-              disabled={!editing}
-              rows={6}
-              {...register('bio')}
-            />
+          <Container style={{ marginTop: '14rem' }}>
+            <TabContent active={toogleState === 1}>
+              {editing ? (
+                <form>
+                  <Textarea
+                    placeholder="Escreva algo sobre você"
+                    disabled={!editing}
+                    rows={6}
+                    {...register('bio')}
+                  />
 
-            <InputContainer>
-              <LocationOn />
-              <Input
-                type="text"
-                placeholder="Cidade e estado"
-                disabled={!editing}
-                {...register('location')}
-              />
-            </InputContainer>
+                  <InputContainer>
+                    <LocationOn />
+                    <Input
+                      type="text"
+                      placeholder="Cidade e estado"
+                      disabled={!editing}
+                      {...register('location')}
+                    />
+                  </InputContainer>
 
-            <InputContainer>
-              <ChatBubble />
-              <Input
-                type="text"
-                placeholder="Idiomas"
-                disabled={!editing}
-                {...register('languages')}
-              />
-            </InputContainer>
+                  <InputContainer>
+                    <ChatBubble />
+                    <Input
+                      type="text"
+                      placeholder="Idiomas"
+                      disabled={!editing}
+                      {...register('languages')}
+                    />
+                  </InputContainer>
 
-            <InputContainer>
-              <Work />
-              <Input
-                type="text"
-                placeholder="Modalidade de trabalho"
-                disabled={!editing}
-                {...register('jobModality')}
-              />
-            </InputContainer>
+                  <InputContainer>
+                    <Work />
+                    <Input
+                      type="text"
+                      placeholder="Modalidade de trabalho"
+                      disabled={!editing}
+                      {...register('jobModality')}
+                    />
+                  </InputContainer>
 
-            <InputContainer>
-              <Mail />
-              <Input
-                type="text"
-                placeholder="Contato"
-                disabled={!editing}
-                {...register('contact')}
-              />
-            </InputContainer>
-          </form>
-        </TabContent>
+                  <InputContainer>
+                    <Mail />
+                    <Input
+                      type="text"
+                      placeholder="Contato"
+                      disabled={!editing}
+                      {...register('contact')}
+                    />
+                  </InputContainer>
+                </form>
+              ) : (
+                <DataContainer>
+                  <DataTitle>SOBRE</DataTitle>
+                  <BigText style={{ marginBottom: '1.5rem' }}>
+                    {user?.bio}
+                  </BigText>
 
-        <TabContent active={toogleState === 2}>
-          <Textarea
-            placeholder="Descreva aqui sua experiência profissional"
-            disabled={!editing}
-            rows={6}
-            {...register('workExperience')}
-          />
-        </TabContent>
+                  <RowData>
+                    <LocationOn /> <DataText>{user?.location}</DataText>
+                  </RowData>
 
-        <TabContent active={toogleState === 3}>
-          <AddJob>
-            <AddJobIcon />
-            <AddJobText>Adicionar um trabalho</AddJobText>
-          </AddJob>
-        </TabContent>
+                  <RowData>
+                    <ChatBubble /> <DataText>{user?.languages}</DataText>
+                  </RowData>
 
-        <TabContent active={toogleState === 4}>
-          <form onSubmit={handleSubmit(handleChangeData)}>
-            <InputContainer>
-              <Mail />
-              <Input
-                type="text"
-                placeholder="LinkedIn"
-                disabled={!editing}
-                {...register('linkedin')}
-              />
-            </InputContainer>
+                  <RowData>
+                    <Work /> <DataText>{user?.job_modality}</DataText>
+                  </RowData>
 
-            <InputContainer>
-              <Mail />
-              <Input
-                type="text"
-                placeholder="Instagram"
-                disabled={!editing}
-                {...register('instagram')}
-              />
-            </InputContainer>
+                  <RowData>
+                    <Mail /> <DataText>{user?.contact}</DataText>
+                  </RowData>
+                </DataContainer>
+              )}
+            </TabContent>
 
-            <InputContainer>
-              <Mail />
-              <Input
-                type="text"
-                placeholder="Facebook"
-                disabled={!editing}
-                {...register('facebook')}
-              />
-            </InputContainer>
+            <TabContent active={toogleState === 2}>
+              {editing ? (
+                <Textarea
+                  placeholder="Descreva aqui sua experiência profissional"
+                  disabled={!editing}
+                  rows={6}
+                  {...register('workExperience')}
+                />
+              ) : (
+                <DataContainer>
+                  <DataTitle>Experiência profissional</DataTitle>
+                  <BigText>{user?.work_experiences}</BigText>
+                </DataContainer>
+              )}
+            </TabContent>
 
-            <InputContainer>
-              <Mail />
-              <Input
-                type="text"
-                placeholder="Website"
-                disabled={!editing}
-                {...register('website')}
-              />
-            </InputContainer>
-          </form>
-        </TabContent>
+            <TabContent active={toogleState === 3}>
+              <AddJob onClick={toggleModal}>
+                <AddJobIcon />
+                <AddJobText>Adicionar um trabalho</AddJobText>
+              </AddJob>
+            </TabContent>
 
-        {editing && (
-          <SaveContainer>
-            <Button
-              buttonType="outline"
-              variant="primary"
-              text="Cancelar"
-              type="button"
-              style={{ width: '200px' }}
-              onClick={() => {
-                loadUserData();
-                setEditing(false);
-              }}
-            />
-            <Button
-              buttonType="solid"
-              variant="primary"
-              text="Salvar"
-              type="submit"
-              isLoading={isSubmitting}
-              disabled={isSubmitting}
-              style={{ width: '200px', marginLeft: '1rem' }}
-            />
-          </SaveContainer>
-        )}
-      </Container>
+            <TabContent active={toogleState === 4}>
+              {editing ? (
+                <form>
+                  <InputContainer>
+                    <SocialMediaLogo src={linkedinIcon} alt="LinkedIn" />
+                    <Input
+                      type="text"
+                      placeholder="LinkedIn"
+                      disabled={!editing}
+                      {...register('linkedin')}
+                    />
+                  </InputContainer>
+
+                  <InputContainer>
+                    <SocialMediaLogo src={instagramIcon} alt="Instagram" />
+                    <Input
+                      type="text"
+                      placeholder="Instagram"
+                      disabled={!editing}
+                      {...register('instagram')}
+                    />
+                  </InputContainer>
+
+                  <InputContainer>
+                    <SocialMediaLogo src={facebookIcon} alt="Facebook" />
+                    <Input
+                      type="text"
+                      placeholder="Facebook"
+                      disabled={!editing}
+                      {...register('facebook')}
+                    />
+                  </InputContainer>
+
+                  <InputContainer>
+                    <SocialMediaLogo src={websiteIcon} alt="Website" />
+                    <Input
+                      type="text"
+                      placeholder="Website"
+                      disabled={!editing}
+                      {...register('website')}
+                    />
+                  </InputContainer>
+                </form>
+              ) : (
+                <SocialMediaContainer>
+                  <SocialMediaLink
+                    href={user?.linkedin}
+                    target="_blank"
+                    style={{
+                      borderBottom: 'none',
+                      borderTopLeftRadius: 16,
+                      borderTopRightRadius: 16,
+                    }}
+                  >
+                    <SocialMediaLogo src={linkedinIcon} alt="LinkedIn" />
+                    LinkedIn
+                  </SocialMediaLink>
+
+                  <SocialMediaLink
+                    href={user?.instagram}
+                    target="_blank"
+                    style={{ borderBottom: 'none' }}
+                  >
+                    <SocialMediaLogo src={instagramIcon} alt="Instagram" />
+                    Instagram
+                  </SocialMediaLink>
+
+                  <SocialMediaLink
+                    href={user?.facebook}
+                    target="_blank"
+                    style={{
+                      borderBottom: 'none',
+                    }}
+                  >
+                    <SocialMediaLogo src={facebookIcon} alt="Facebook" />
+                    Facebook
+                  </SocialMediaLink>
+
+                  <SocialMediaLink
+                    href={user?.facebook}
+                    target="_blank"
+                    style={{
+                      borderBottomLeftRadius: 16,
+                      borderBottomRightRadius: 16,
+                    }}
+                  >
+                    <SocialMediaLogo src={websiteIcon} alt="Website" />
+                    Website
+                  </SocialMediaLink>
+                </SocialMediaContainer>
+              )}
+            </TabContent>
+
+            {editing && (
+              <SaveContainer>
+                <Button
+                  buttonType="outline"
+                  variant="primary"
+                  text="Cancelar"
+                  type="button"
+                  style={{ width: '200px' }}
+                  onClick={() => {
+                    loadUserData();
+                    setEditing(false);
+                  }}
+                />
+                <Button
+                  buttonType="solid"
+                  variant="primary"
+                  text="Salvar"
+                  type="submit"
+                  onClick={handleSubmit(handleChangeData)}
+                  isLoading={isSubmitting}
+                  disabled={isSubmitting}
+                  style={{ width: '200px', marginLeft: '1rem' }}
+                />
+              </SaveContainer>
+            )}
+          </Container>
+        </>
+      )}
 
       <FooterSection>
         <FooterContainer>
           <Footer />
         </FooterContainer>
       </FooterSection>
+
+      <ProfileModal modalIsOpen={showModal} toggleModalFunction={toggleModal} />
     </Wrapper>
   );
 };

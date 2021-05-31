@@ -49,25 +49,3 @@ export const ModalContent = styled.section`
     padding: 1.5rem;
   }
 `;
-
-export const ContentWrapper = styled.div`
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-
-  form {
-    width: 100%;
-    margin-top: 2rem;
-  }
-`;
-
-export const ModalTitle = styled.h1`
-  font-size: 2rem;
-  font-weight: 500;
-  color: var(--black);
-  margin-bottom: 1.5rem;
-`;
-
-export const ModalText = styled.p`
-  margin-top: -1rem;
-`;
