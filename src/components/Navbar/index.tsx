@@ -19,7 +19,11 @@ import { useAuth } from '../../contexts/auth';
 import adaptoLogo from '../../assets/images/adapto-logo.svg';
 import searchIcon from '../../assets/icons/search.svg';
 
-export const Navbar: React.FC = () => {
+type NavbarProps = {
+  solid?: boolean;
+};
+
+export const Navbar: React.FC<NavbarProps> = ({ solid = false }) => {
   const { signOut, user } = useAuth();
   const [scrolled, setScrolled] = useState(false);
 
@@ -44,7 +48,7 @@ export const Navbar: React.FC = () => {
   }, [signOut]);
 
   return (
-    <Nav scrolled={scrolled}>
+    <Nav scrolled={scrolled || solid}>
       <NavContainer>
         <NavLeft>
           <Link to="/">
