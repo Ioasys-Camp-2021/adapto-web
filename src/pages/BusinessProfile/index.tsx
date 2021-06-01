@@ -47,6 +47,7 @@ import {
   TrashIcon,
   JobProfileContainer,
   JobWrapper,
+  ContentContainer,
 } from './styles';
 import { Button } from '../../components/Button';
 import { JobProfileItem } from '../../components/JobProfileItem';
@@ -274,7 +275,7 @@ export const BusinessProfile: React.FC = () => {
         <title>Perfil | Adapto</title>
         <meta
           name="description"
-          content="Descrição padrão para essa tela para melhorar a indexação da página nos crawlers."
+          content="Perfil de uma empresa. Entre e conheça sobre essa empresa e suas vagas, uma delas pode ser do seu interesse."
         />
       </Helmet>
 
@@ -336,7 +337,7 @@ export const BusinessProfile: React.FC = () => {
             </Container>
           </BackgroundImage>
 
-          <Container style={{ marginTop: '12rem' }}>
+          <ContentContainer>
             <TabContent active={toogleState === 1}>
               {editing ? (
                 <form>
@@ -371,16 +372,21 @@ export const BusinessProfile: React.FC = () => {
                 <DataContainer>
                   <DataTitle>SOBRE</DataTitle>
                   <BigText style={{ marginBottom: '1.5rem' }}>
-                    {business?.bio}
+                    {business?.bio ? business?.bio : 'Sem dados cadastrados'}
                   </BigText>
 
                   <RowData>
-                    <Mail /> <DataText>{business?.contact}</DataText>
+                    <Mail />{' '}
+                    <DataText>
+                      {business?.contact ? business?.contact : 'Sem dados'}
+                    </DataText>
                   </RowData>
 
                   <RowData>
                     <SocialMediaLogo src={websiteIcon} alt="Website" />{' '}
-                    <DataText>{business?.website}</DataText>
+                    <DataText>
+                      {business?.website ? business?.website : 'Sem dados'}
+                    </DataText>
                   </RowData>
                 </DataContainer>
               )}
@@ -502,7 +508,7 @@ export const BusinessProfile: React.FC = () => {
                 />
               </SaveContainer>
             )}
-          </Container>
+          </ContentContainer>
         </>
       )}
 

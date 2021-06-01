@@ -54,6 +54,7 @@ import {
   ProjectsContainer,
   DeleteButton,
   DeleteIcon,
+  ContentContainer,
 } from './styles';
 import { Button } from '../../components/Button';
 
@@ -269,7 +270,7 @@ export const RefugeeProfile: React.FC = () => {
         <title>Perfil | Adapto</title>
         <meta
           name="description"
-          content="Descrição padrão para essa tela para melhorar a indexação da página nos crawlers."
+          content="Perfil de um refugiado. Entre e conheça sobre essa pessoa, suas experiências, trabalhos e maneiras de entrar em contato."
         />
       </Helmet>
 
@@ -312,7 +313,9 @@ export const RefugeeProfile: React.FC = () => {
                         />
                       </InputContainer>
                     ) : (
-                      <Function>{user?.title}</Function>
+                      <Function>
+                        {user?.title ? user?.title : 'Sem descrição'}
+                      </Function>
                     )}
                   </ProfileDetails>
                 </ProfileContainer>
@@ -347,7 +350,7 @@ export const RefugeeProfile: React.FC = () => {
             </Container>
           </BackgroundImage>
 
-          <Container style={{ marginTop: '14rem' }}>
+          <ContentContainer>
             <TabContent active={toogleState === 1}>
               {editing ? (
                 <form>
@@ -402,23 +405,35 @@ export const RefugeeProfile: React.FC = () => {
                 <DataContainer>
                   <DataTitle>SOBRE</DataTitle>
                   <BigText style={{ marginBottom: '1.5rem' }}>
-                    {user?.bio}
+                    {user?.bio ? user?.bio : 'Sem dados cadastrados'}
                   </BigText>
 
                   <RowData>
-                    <LocationOn /> <DataText>{user?.location}</DataText>
+                    <LocationOn />{' '}
+                    <DataText>
+                      {user?.location ? user?.location : 'Sem dados'}
+                    </DataText>
                   </RowData>
 
                   <RowData>
-                    <ChatBubble /> <DataText>{user?.languages}</DataText>
+                    <ChatBubble />{' '}
+                    <DataText>
+                      {user?.languages ? user?.languages : 'Sem dados'}
+                    </DataText>
                   </RowData>
 
                   <RowData>
-                    <Work /> <DataText>{user?.job_modality}</DataText>
+                    <Work />{' '}
+                    <DataText>
+                      {user?.job_modality ? user?.job_modality : 'Sem dados'}
+                    </DataText>
                   </RowData>
 
                   <RowData>
-                    <Mail /> <DataText>{user?.contact}</DataText>
+                    <Mail />{' '}
+                    <DataText>
+                      {user?.contact ? user?.contact : 'Sem dados'}
+                    </DataText>
                   </RowData>
                 </DataContainer>
               )}
@@ -435,7 +450,11 @@ export const RefugeeProfile: React.FC = () => {
               ) : (
                 <DataContainer>
                   <DataTitle>Experiência profissional</DataTitle>
-                  <BigText>{user?.work_experiences}</BigText>
+                  <BigText>
+                    {user?.work_experiences
+                      ? user?.work_experiences
+                      : 'Sem dados cadastrados'}
+                  </BigText>
                 </DataContainer>
               )}
             </TabContent>
@@ -451,7 +470,7 @@ export const RefugeeProfile: React.FC = () => {
 
                 {projects.map((project) => (
                   <WorkItem key={project.id} work={project}>
-                    {storedUser.id === Number(id) && (
+                    {storedUser?.id === Number(id) && (
                       <DeleteButton
                         onClick={() => handleDeleteProject(project.id)}
                       >
@@ -556,7 +575,7 @@ export const RefugeeProfile: React.FC = () => {
               )}
             </TabContent>
 
-            {editing && (
+            {editing && toogleState !== 3 && (
               <SaveContainer>
                 <Button
                   buttonType="outline"
@@ -581,7 +600,7 @@ export const RefugeeProfile: React.FC = () => {
                 />
               </SaveContainer>
             )}
-          </Container>
+          </ContentContainer>
         </>
       )}
 

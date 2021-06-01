@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+import { Helmet } from 'react-helmet-async';
+
 import { toast } from 'react-toastify';
 import {
   Wrapper,
@@ -59,6 +61,13 @@ export const Portfolio: React.FC = () => {
 
   return (
     <Wrapper>
+      <Helmet>
+        <title>Portifólio | Adapto</title>
+        <meta
+          name="description"
+          content="Conheça o portifólio dos refugiados cadastrados. Encontre aquele com a realidade mais adequada a da sua empresa e entre em contato com ele."
+        />
+      </Helmet>
       <Navbar />
 
       <Header>

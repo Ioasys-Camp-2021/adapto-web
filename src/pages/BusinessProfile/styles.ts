@@ -49,6 +49,13 @@ export const HeaderContainer = styled.div`
   display: flex;
   align-items: flex-end;
   flex-direction: row;
+
+  @media (max-width: 907px) {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    bottom: -12rem;
+  }
 `;
 
 export const ProfileContainer = styled.div``;
@@ -76,9 +83,34 @@ export const NoPhoto = styled(FiCameraOff)`
   color: #999999;
 `;
 
+export const ContentContainer = styled(Container)`
+  margin-top: 12rem;
+
+  @media (max-width: 907px) {
+    margin-top: 22rem;
+  }
+`;
+
 export const ProfileDetails = styled.div`
   position: absolute;
   margin-top: 0.5rem;
+
+  @media (max-width: 907px) {
+    margin-top: 10rem;
+    width: 720px;
+  }
+
+  @media (max-width: 770px) {
+    width: 520px;
+  }
+
+  @media (max-width: 570px) {
+    width: 320px;
+  }
+
+  @media (max-width: 380px) {
+    width: 100%;
+  }
 `;
 
 export const NameContainer = styled.div`
@@ -140,9 +172,11 @@ export const TabsContainer = styled.div`
 
   @media (max-width: 907px) {
     display: flex;
+    align-items: flex-start;
     flex-direction: column;
-    align-items: flex-end;
-    justify-content: flex-end;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-top: 1rem;
   }
 `;
 

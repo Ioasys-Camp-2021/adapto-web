@@ -102,7 +102,7 @@ export const SignUp: React.FC = () => {
           <title>Cadastrar | Adapto</title>
           <meta
             name="description"
-            content="Descrição padrão para essa tela para melhorar a indexação da página nos crawlers."
+            content="Cadastre-se na plataforma para divulgar seu portifólio, vagas e ficar cada vez menos distante do mercado de trabalho."
           />
         </Helmet>
 

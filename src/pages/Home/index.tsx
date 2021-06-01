@@ -80,7 +80,7 @@ export const Home: React.FC = () => {
         <title>Home | Adapto</title>
         <meta
           name="description"
-          content="Descrição padrão para essa tela para melhorar a indexação da página nos crawlers."
+          content="Bem-vindo à Adapto, sua plataforma para conectar refugiados e empresas."
         />
       </Helmet>
       <Navbar />
@@ -141,7 +141,7 @@ export const Home: React.FC = () => {
               <LaborMarketSolidButton to="/">
                 Divulgar vaga
               </LaborMarketSolidButton>
-              <LaborMarketOutlineButton to="/">
+              <LaborMarketOutlineButton to="/portfolio">
                 Ver trabalhos
               </LaborMarketOutlineButton>
             </ButtonsContainer>

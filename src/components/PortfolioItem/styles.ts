@@ -32,6 +32,11 @@ export const ProfileImage = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 390px) {
+    width: 60px;
+    height: 60px;
+  }
 `;
 
 export const NoPhoto = styled(FiCameraOff)`
@@ -50,11 +55,19 @@ export const Details = styled.div`
 export const Name = styled.h2`
   font-weight: 600;
   margin-bottom: -0.2rem;
+
+  @media (max-width: 390px) {
+    font-size: 1.3rem;
+  }
 `;
 
 export const Title = styled.h3`
   font-weight: 500;
   font-size: 1.1rem;
+
+  @media (max-width: 390px) {
+    font-size: 1rem;
+  }
 `;
 
 export const Bio = styled.p`

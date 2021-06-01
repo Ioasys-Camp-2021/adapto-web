@@ -20,6 +20,7 @@ import {
   SidebarSignOutButton,
   LoginButton,
   SignOutButton,
+  SidebarWrapper,
 } from './styles';
 
 import { useAuth } from '../../contexts/auth';
@@ -98,33 +99,35 @@ export const Navbar: React.FC<NavbarProps> = ({ solid = false }) => {
       </Nav>
 
       {showSidebar && (
-        <Sidebar>
-          <SidebarContainer>
-            <SidebarCloseButton onClick={toogleSideBar} />
+        <SidebarWrapper>
+          <Sidebar>
+            <SidebarContainer>
+              <SidebarCloseButton onClick={toogleSideBar} />
 
-            <SidebarLink to="/about">Sobre nós</SidebarLink>
-            <SidebarLink to="/portfolio">Portifólio</SidebarLink>
-            <SidebarLink to="/jobs">Vagas</SidebarLink>
+              <SidebarLink to="/about">Sobre nós</SidebarLink>
+              <SidebarLink to="/portfolio">Portifólio</SidebarLink>
+              <SidebarLink to="/jobs">Vagas</SidebarLink>
 
-            <SmallContainer>
-              {user ? (
-                <>
-                  <SidebarLink to={`/${user?.role}/profile/${user?.id}`}>
-                    Meu perfil
-                  </SidebarLink>
-                  <SidebarSignOutButton onClick={handleSignOut}>
-                    Sair
-                  </SidebarSignOutButton>
-                </>
-              ) : (
-                <>
-                  <SidebarLink to="/register">Criar conta</SidebarLink>
-                  <SidebarLoginButton to="/login">Entrar</SidebarLoginButton>
-                </>
-              )}
-            </SmallContainer>
-          </SidebarContainer>
-        </Sidebar>
+              <SmallContainer>
+                {user ? (
+                  <>
+                    <SidebarLink to={`/${user?.role}/profile/${user?.id}`}>
+                      Meu perfil
+                    </SidebarLink>
+                    <SidebarSignOutButton onClick={handleSignOut}>
+                      Sair
+                    </SidebarSignOutButton>
+                  </>
+                ) : (
+                  <>
+                    <SidebarLink to="/register">Criar conta</SidebarLink>
+                    <SidebarLoginButton to="/login">Entrar</SidebarLoginButton>
+                  </>
+                )}
+              </SmallContainer>
+            </SidebarContainer>
+          </Sidebar>
+        </SidebarWrapper>
       )}
     </>
   );

@@ -39,11 +39,11 @@ export const PortfolioItem: React.FC<PorfolioItemProps> = ({ user }) => (
       </ProfileImage>
 
       <Details>
-        <Name>{user.title}</Name>
-        <Title>{user.title}</Title>
+        <Name>{user.title ? user.title : 'Sem dados'}</Name>
+        <Title>{user.title ? user.title : 'Sem dados'}</Title>
       </Details>
     </DetailContainer>
 
-    <Bio>{user.bio}</Bio>
+    <Bio>{user.bio ? user.bio : 'Sem dados para exibir'}</Bio>
   </Container>
 );

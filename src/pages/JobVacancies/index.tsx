@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+import { Helmet } from 'react-helmet-async';
+
 import { toast } from 'react-toastify';
 import {
   Wrapper,
@@ -72,6 +74,13 @@ export const JobVacancies: React.FC = () => {
 
   return (
     <Wrapper>
+      <Helmet>
+        <title>Portifólio | Adapto</title>
+        <meta
+          name="description"
+          content="Conheça as vagas ofertadas pelas empresas cadastradas. Encontre aquela que faz mais sentido com o seu contexto e entre em contato com a empresa."
+        />
+      </Helmet>
       <Navbar />
 
       <Header>

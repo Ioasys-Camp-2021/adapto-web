@@ -77,7 +77,21 @@ export const MenuIcon = styled(FiMenu)`
   color: var(--caramel-800);
 `;
 
-export const Sidebar = styled.div`
+export const SidebarWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  top: 0;
+  position: fixed;
+  background-color: var(--modal-background);
+  backdrop-filter: blur(1px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 100;
+`;
+
+export const Sidebar = styled.aside`
   @media (min-width: 990px) {
     display: none;
   }
@@ -104,7 +118,7 @@ export const SidebarContainer = styled.div`
   padding-top: 4rem;
 
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
   flex-direction: column;
 `;
 
@@ -123,12 +137,13 @@ export const SidebarLink = styled(Link)`
   font-size: 1.1rem;
   font-weight: 500;
   color: var(--blue-800);
+  margin-bottom: 0.5rem;
 `;
 
 export const SmallContainer = styled.div`
   margin-top: 1rem;
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
   flex-direction: column;
 `;
 
@@ -198,8 +213,6 @@ export const SidebarLoginButton = styled(Link)`
   align-items: center;
   justify-content: center;
 
-  margin-top: 0.4rem;
-
   &:focus {
     border: 1px solid var(--caramel-800);
   }
@@ -220,8 +233,6 @@ export const SidebarSignOutButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-
-  margin-top: 0.4rem;
 
   &:focus {
     border: 1px solid var(--caramel-800);

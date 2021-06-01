@@ -13,13 +13,9 @@ export const Container = styled.div`
   margin-top: 3rem;
 
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   column-gap: 1rem;
   row-gap: 1rem;
-
-  @media (max-width: 1136px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
 
   @media (max-width: 940px) {
     grid-template-columns: repeat(2, 1fr);
@@ -54,6 +50,11 @@ export const Title = styled.h1`
   font-size: 4rem;
   text-align: center;
   line-height: 5rem;
+
+  @media (max-width: 390px) {
+    font-size: 3rem;
+    line-height: 4rem;
+  }
 `;
 
 export const ErrorContainer = styled.div`

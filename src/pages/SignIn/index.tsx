@@ -87,7 +87,7 @@ export const SignIn: React.FC = () => {
           <title>Entrar | Adapto</title>
           <meta
             name="description"
-            content="Descrição padrão para essa tela para melhorar a indexação da página nos crawlers."
+            content="Faça login da plataforma e comece a usá-la para divulgar seus trabalhos ou suas vagas."
           />
         </Helmet>
 
