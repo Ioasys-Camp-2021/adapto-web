@@ -50,6 +50,10 @@ import {
   SocialMediaContainer,
   ErrorContainer,
   ErrorMessage,
+  NoPhoto,
+  ProjectsContainer,
+  DeleteButton,
+  DeleteIcon,
 } from './styles';
 import { Button } from '../../components/Button';
 
@@ -61,6 +65,7 @@ import linkedinIcon from '../../assets/icons/linkedinCaramel.svg';
 import instagramIcon from '../../assets/icons/instagramCaramel.svg';
 import facebookIcon from '../../assets/icons/facebookCaramel.svg';
 import websiteIcon from '../../assets/icons/webCaramel.svg';
+import { WorkItem } from '../../components/WorkItem';
 
 type UserFormData = {
   fullName: string;
@@ -106,11 +111,28 @@ type UserData = {
   };
 };
 
+type WorkParams = {
+  id: number;
+  refugeeId: number;
+  title: string;
+  description: string;
+  User: {
+    id: number;
+    fullName: string;
+  };
+  Category: {
+    id: number;
+    title: string;
+  };
+};
+
 const userFormSchema = yup.object().shape({});
 
 export const RefugeeProfile: React.FC = () => {
   const { id } = useParams<ParamsProps>();
   const [showModal, setShowModal] = useState(false);
+
+  const [projects, setProjects] = useState<WorkParams[]>([]);
   const [user, setUser] = useState<UserData>();
 
   const [error, setError] = useState('');
@@ -131,6 +153,40 @@ export const RefugeeProfile: React.FC = () => {
 
   const toggleModal = () => {
     setShowModal(!showModal);
+
+    if (!showModal) {
+      loadProjects();
+    }
+  };
+
+  const loadProjects = async () => {
+    try {
+      const response = await api.get('/project');
+
+      if (response.data.data) {
+        const userProjects = response.data.data.filter(
+          (item: any) => item.User.id === Number(id),
+        );
+
+        setProjects(userProjects);
+      } else {
+        setProjects([]);
+      }
+    } catch (err) {
+      toast.error('Falha ao buscar os projetos do usuário.');
+    }
+  };
+
+  const handleDeleteProject = async (projectId: number) => {
+    try {
+      await api.delete(`/project/${projectId}`);
+
+      toast.success('Projeto excluído com sucesso.');
+
+      loadProjects();
+    } catch (err) {
+      toast.error('Falha ao excluir esse projeto.');
+    }
   };
 
   const loadUserData = async () => {
@@ -174,11 +230,11 @@ export const RefugeeProfile: React.FC = () => {
 
   useEffect(() => {
     loadUserData();
+    loadProjects();
   }, []);
 
   const handleChangeData = useCallback(async (values) => {
     const data = {
-      fullName: values.fullname ? values.fullName : '',
       title: values.title ? values.title : '',
       bio: values.bio ? values.bio : '',
       location: values.location ? values.location : '',
@@ -227,21 +283,12 @@ export const RefugeeProfile: React.FC = () => {
             <Container>
               <HeaderContainer>
                 <ProfileContainer>
-                  <ProfileImage />
+                  <ProfileImage>
+                    <NoPhoto />
+                  </ProfileImage>
                   <ProfileDetails>
                     <NameContainer>
-                      {editing ? (
-                        <InputContainer>
-                          <Input
-                            type="text"
-                            placeholder="Nome"
-                            disabled={!editing}
-                            {...register('fullName')}
-                          />
-                        </InputContainer>
-                      ) : (
-                        <Name>{user?.User.fullName}</Name>
-                      )}
+                      <Name>{user?.User.fullName}</Name>
                       {!editing && (
                         <>
                           {storedUser?.id === Number(id) && (
@@ -394,12 +441,26 @@ export const RefugeeProfile: React.FC = () => {
             </TabContent>
 
             <TabContent active={toogleState === 3}>
-              {storedUser?.id === Number(id) && (
-                <AddJob onClick={toggleModal}>
-                  <AddJobIcon />
-                  <AddJobText>Adicionar um trabalho</AddJobText>
-                </AddJob>
-              )}
+              <ProjectsContainer>
+                {storedUser?.id === Number(id) && (
+                  <AddJob onClick={toggleModal}>
+                    <AddJobIcon />
+                    <AddJobText>Adicionar um trabalho</AddJobText>
+                  </AddJob>
+                )}
+
+                {projects.map((project) => (
+                  <WorkItem key={project.id} work={project}>
+                    {storedUser.id === Number(id) && (
+                      <DeleteButton
+                        onClick={() => handleDeleteProject(project.id)}
+                      >
+                        <DeleteIcon />
+                      </DeleteButton>
+                    )}
+                  </WorkItem>
+                ))}
+              </ProjectsContainer>
             </TabContent>
 
             <TabContent active={toogleState === 4}>

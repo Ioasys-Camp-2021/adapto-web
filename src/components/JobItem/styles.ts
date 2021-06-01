@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { FiArchive } from 'react-icons/fi';
+import { FiArchive, FiCameraOff } from 'react-icons/fi';
 
 export const Container = styled.div`
   width: 100%;
@@ -27,11 +27,18 @@ export const BusinessLink = styled(Link)`
   font-size: 0;
   width: 70px;
   height: 70px;
-  background-color: #f1f1f1;
+  background-color: #d6d6d6;
   border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
-export const BusinessLogo = styled.img``;
+export const BusinessLogo = styled(FiCameraOff)`
+  font-size: 1.5rem;
+  color: #777777;
+`;
 
 export const DetailContainer = styled.div`
   margin-left: 2rem;

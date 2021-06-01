@@ -8,6 +8,8 @@ import {
   Title,
   FooterSection,
   FooterContainer,
+  ErrorContainer,
+  ErrorMessage,
 } from './styles';
 
 import { Footer } from '../../components/Footer';
@@ -23,6 +25,8 @@ type Jobs = {
   categoryId: number;
   title: string;
   description: string;
+  location: string;
+  isRemote: boolean;
   jobModality: string;
   User: {
     fullName: string;
@@ -35,6 +39,7 @@ type Jobs = {
 export const JobVacancies: React.FC = () => {
   const [jobs, setJobs] = useState<Jobs[]>([]);
   const [selectedJob, setSelectedJob] = useState<Jobs>();
+  const [error, setError] = useState('');
   const [showModal, setShowModal] = useState(false);
 
   const loadJobs = async () => {
@@ -42,10 +47,13 @@ export const JobVacancies: React.FC = () => {
       const response = await api.get('/job');
 
       if (response.data.data) {
+        setError('');
         setJobs(response.data.data);
+      } else {
+        setError('Nenhuma vaga foi cadastrada no sistema.');
       }
     } catch (err) {
-      console.log(err);
+      setError('Falha ao carregar as vagas cadastradas no sistema.');
       toast.error('Falha ao carregar as vagas cadastradas.');
     }
   };
@@ -74,16 +82,22 @@ export const JobVacancies: React.FC = () => {
         </Title>
       </Header>
 
-      <Container>
-        {jobs.map((job) => (
-          <JobItem
-            key={job.id}
-            job={job}
-            toogleModal={handleShowModal}
-            selectJob={handleSelectJob}
-          />
-        ))}
-      </Container>
+      {error ? (
+        <ErrorContainer>
+          <ErrorMessage>{error}</ErrorMessage>
+        </ErrorContainer>
+      ) : (
+        <Container>
+          {jobs.map((job) => (
+            <JobItem
+              key={job.id}
+              job={job}
+              toogleModal={handleShowModal}
+              selectJob={handleSelectJob}
+            />
+          ))}
+        </Container>
+      )}
 
       <FooterSection>
         <FooterContainer>

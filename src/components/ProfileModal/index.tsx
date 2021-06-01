@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect } from 'react';
+/* eslint-disable operator-linebreak */
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -9,18 +10,27 @@ import { toast } from 'react-toastify';
 import { Button } from '../Button';
 import { Input } from '../Input';
 
-import { Container, ModalCloseButton, ModalContent } from './styles';
+import {
+  Container,
+  ModalCloseButton,
+  ModalContent,
+  Textarea,
+  Select,
+} from './styles';
 import { api } from '../../services/api';
 
 type JobFormData = {
-  job: string;
+  title: string;
   category: string;
+  description: string;
 };
 
-const jobFormSchema = yup.object().shape({
-  job: yup.string().required('Título do trabalho é um campo obrigatório'),
-  category: yup.string().required('Categoria é um campo obrigatório'),
-});
+type CategoriesData = {
+  id: number;
+  title: string;
+};
+
+const jobFormSchema = yup.object().shape({});
 
 type ModalProps = {
   modalIsOpen: boolean;
@@ -31,6 +41,8 @@ export const ProfileModal: React.FC<ModalProps> = ({
   modalIsOpen,
   toggleModalFunction,
 }) => {
+  const [categories, setCategories] = useState<CategoriesData[]>([]);
+
   const {
     register,
     handleSubmit,
@@ -40,30 +52,48 @@ export const ProfileModal: React.FC<ModalProps> = ({
     resolver: yupResolver(jobFormSchema),
   });
 
-  const handleCreateNewJob = useCallback(async (values) => {
+  const loadCategories = async () => {
     try {
-      await api.post('/auth/reset-password', {
-        email1: values.email,
-        email2: values.email,
-      });
+      const response = await api.get('/category');
 
-      toast.success('Email de recuperação de senha enviado com sucesso.');
+      setCategories(response.data.data);
+    } catch (err) {
+      toast.error('Falha ao buscar as categorias cadastradas.');
+    }
+  };
 
+  const handleCreateNewJob = useCallback(async (values) => {
+    if (
+      !values.title ||
+      !values.description ||
+      !values.category ||
+      values.category === 'default'
+    ) {
+      toast.error(
+        'Preencha todas as informações antes de publicar um trabalho.',
+      );
+      return;
+    }
+
+    const data = {
+      title: values.title,
+      description: values.description,
+      categoryId: Number(values.category),
+    };
+
+    try {
+      await api.post('/project', data);
+
+      toast.success('Trabalho enviado com sucesso.');
       toggleModalFunction();
     } catch (err) {
-      const { status } = err.response;
-
-      if (status === 422) {
-        toast.error('Falha ao enviar email de recuperação de senha.');
-        return;
-      }
-
-      toast.error('Erro interno de servidor.');
+      toast.error('Falha ao enviar esse trabalho.');
     }
   }, []);
 
   useEffect(() => {
     reset();
+    loadCategories();
   }, [modalIsOpen]);
 
   return (
@@ -71,23 +101,36 @@ export const ProfileModal: React.FC<ModalProps> = ({
       <ModalContent>
         <ModalCloseButton type="button" onClick={toggleModalFunction} />
 
-        <form onSubmit={handleSubmit(handleCreateNewJob)}>
+        <form
+          onSubmit={handleSubmit(handleCreateNewJob)}
+          style={{ marginTop: '1rem' }}
+        >
           <Input
             type="text"
             placeholder="Título do trabalho"
-            error={errors.job}
-            {...register('job')}
+            error={errors.title}
+            {...register('title')}
           />
-          <Input
-            type="text"
-            placeholder="Categoria"
-            error={errors.category}
-            {...register('category')}
+          <Select defaultValue="default" {...register('category')}>
+            <option value="default" hidden>
+              Escolha uma opção
+            </option>
+            {categories.map((category) => (
+              <option value={category.id} key={category.id}>
+                {category.title}
+              </option>
+            ))}
+          </Select>
+          <Textarea
+            placeholder="Escreva algo sobre o trabalho"
+            rows={6}
+            {...register('description')}
           />
+
           <Button
             buttonType="solid"
             variant="primary"
-            text="Salvar"
+            text="Enviar"
             type="submit"
             isLoading={isSubmitting}
             disabled={isSubmitting}

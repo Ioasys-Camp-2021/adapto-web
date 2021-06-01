@@ -6,6 +6,8 @@ import {
   Container,
   Header,
   Title,
+  ErrorContainer,
+  ErrorMessage,
   FooterSection,
   FooterContainer,
 } from './styles';
@@ -13,21 +15,40 @@ import {
 import { Footer } from '../../components/Footer';
 import { Navbar } from '../../components/Navbar';
 import { api } from '../../services/api';
+import { PortfolioItem } from '../../components/PortfolioItem';
 
-type Users = {};
+type User = {
+  id: number;
+  userId: number;
+  title: string;
+  bio: string;
+  location: string;
+  languages: string;
+  contact: string;
+  job_modality: string;
+  work_experiences: string;
+  website: string;
+  linkedin: string;
+  facebook: string;
+  instagram: string;
+};
 
 export const Portfolio: React.FC = () => {
-  const [users, setUsers] = useState<Users[]>([]);
-
-  console.log(users);
+  const [users, setUsers] = useState<User[]>([]);
+  const [error, setError] = useState('');
 
   const loadUsers = async () => {
     try {
       const response = await api.get('/refugee');
 
-      setUsers(response.data.data);
+      if (response.data.data) {
+        setError('');
+        setUsers(response.data.data);
+      } else {
+        setError('Nenhum portifólio foi cadastrado no sistema.');
+      }
     } catch (err) {
-      console.log(err);
+      setError('Não foi possível carregar o portifólio dos refugiados.');
       toast.error('Falha ao carregar os refugiados.');
     }
   };
@@ -48,7 +69,17 @@ export const Portfolio: React.FC = () => {
         </Title>
       </Header>
 
-      <Container />
+      {error ? (
+        <ErrorContainer>
+          <ErrorMessage>{error}</ErrorMessage>
+        </ErrorContainer>
+      ) : (
+        <Container>
+          {users.map((user) => (
+            <PortfolioItem user={user} key={user.id} />
+          ))}
+        </Container>
+      )}
 
       <FooterSection>
         <FooterContainer>

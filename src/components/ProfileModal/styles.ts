@@ -18,7 +18,7 @@ export const Container = styled.div<{ modalIsOpen: boolean }>`
     padding: 1rem 1rem;
   }
 
-  z-index: 999999;
+  z-index: 100;
 `;
 
 export const ModalCloseButton = styled(BsX)`
@@ -48,4 +48,34 @@ export const ModalContent = styled.section`
   @media (max-width: 740px) {
     padding: 1.5rem;
   }
+`;
+
+export const Textarea = styled.textarea`
+  width: 100%;
+  resize: none;
+  border-radius: 16px;
+  outline: none;
+  padding: 0.8rem 1rem;
+  margin-bottom: 0.4rem;
+
+  border: 1px solid #bbbbbb;
+  background-color: #fefefe;
+
+  &:hover {
+    border-color: #858585;
+  }
+
+  &:focus {
+    border-color: var(--caramel-400);
+  }
+`;
+
+export const Select = styled.select`
+  width: 100%;
+  outline: none;
+  background-color: #fefefe;
+  border: 1.5px solid #bbbbbb;
+  border-radius: 16px;
+  padding: 12px 10px;
+  margin-bottom: 0.8rem;
 `;

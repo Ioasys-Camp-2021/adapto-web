@@ -19,6 +19,7 @@ import {
   HeaderContainer,
   ProfileContainer,
   ProfileImage,
+  NoPhoto,
   ProfileDetails,
   NameContainer,
   Name,
@@ -51,10 +52,10 @@ import { Button } from '../../components/Button';
 import { JobProfileItem } from '../../components/JobProfileItem';
 
 import { api } from '../../services/api';
-import { ProfileModal } from '../../components/ProfileModal';
 import { useAuth } from '../../contexts/auth';
 
 import websiteIcon from '../../assets/icons/webCaramel.svg';
+import { JobModal } from '../../components/JobModal';
 
 type BusinessFormData = {
   fullName: string;
@@ -88,6 +89,8 @@ type JobParams = {
   categoryId: number;
   title: string;
   description: string;
+  location: string;
+  isRemote: boolean;
   jobModality: string;
 };
 
@@ -116,6 +119,7 @@ const jobFormSchema = yup.object().shape({});
 export const BusinessProfile: React.FC = () => {
   const { id } = useParams<ParamsProps>();
   const [showModal, setShowModal] = useState(false);
+  const [selectedJob, setSelectedJob] = useState<JobParams>();
   const [business, setBusiness] = useState<BusinessData>();
   const [categories, setCategories] = useState<CategoriesData[]>([]);
 
@@ -138,15 +142,11 @@ export const BusinessProfile: React.FC = () => {
   const {
     register: registerJob,
     handleSubmit: handleSubmitJob,
-    // reset,
+    reset,
     formState: { isSubmitting: isSubmittingJob },
   } = useForm<JobFormData>({
     resolver: yupResolver(jobFormSchema),
   });
-
-  const toggleModal = () => {
-    setShowModal(!showModal);
-  };
 
   const loadCategories = async () => {
     try {
@@ -193,7 +193,6 @@ export const BusinessProfile: React.FC = () => {
 
   const handleChangeData = useCallback(async (values) => {
     const data = {
-      fullName: values.fullname ? values.fullName : '',
       bio: values.bio ? values.bio : '',
       contact: values.contact ? values.contact : '',
       website: values.website ? values.website : '',
@@ -213,29 +212,38 @@ export const BusinessProfile: React.FC = () => {
   }, []);
 
   const handlePublishJob = useCallback(async (values) => {
-    console.log(values);
-    // if (!values.jobTitle || !values.jobDescription || !values.jobType) {
-    //   toast.error('Preencha todas as informações antes de publicar uma vaga.');
-    // }
+    if (
+      !values.jobTitle ||
+      !values.jobDescription ||
+      !values.jobType ||
+      !values.category ||
+      values.category === 'default' ||
+      !values.location
+    ) {
+      toast.error('Preencha todas as informações antes de publicar uma vaga.');
+      return;
+    }
 
-    // const data = {
-    //   title: values.jobTitle,
-    //   description: values.jobDescription,
-    //   jobModality: values.jobType,
-    //   location: '',
-    //   isRemote: false,
-    //   categoryId: 1,
-    // };
+    const data = {
+      title: values.jobTitle,
+      description: values.jobDescription,
+      jobModality: values.jobType,
+      location: values.location,
+      isRemote: values.isRemote === 'true',
+      categoryId: Number(values.category),
+    };
 
-    // try {
-    //   await api.post('/job', data);
+    try {
+      await api.post('/job', data);
 
-    //   toast.success('Vaga publicada com sucesso.');
+      toast.success('Vaga publicada com sucesso.');
 
-    //   reset();
-    // } catch (err) {
-    //   toast.error('Falha ao publicar a vaga.');
-    // }
+      reset();
+
+      loadBusinessData();
+    } catch (err) {
+      toast.error('Falha ao publicar a vaga.');
+    }
   }, []);
 
   const deleteJob = async (jobId: number) => {
@@ -248,6 +256,14 @@ export const BusinessProfile: React.FC = () => {
     } catch (err) {
       toast.error('Falha ao deletar essa vaga.');
     }
+  };
+
+  const handleShowModal = () => {
+    setShowModal(!showModal);
+  };
+
+  const handleSelectJob = (job: JobParams) => {
+    setSelectedJob(job);
   };
 
   return (
@@ -272,21 +288,12 @@ export const BusinessProfile: React.FC = () => {
             <Container>
               <HeaderContainer>
                 <ProfileContainer>
-                  <ProfileImage />
+                  <ProfileImage>
+                    <NoPhoto />
+                  </ProfileImage>
                   <ProfileDetails>
                     <NameContainer>
-                      {editing ? (
-                        <InputContainer>
-                          <Input
-                            type="text"
-                            placeholder="Nome"
-                            disabled={!editing}
-                            {...register('fullName')}
-                          />
-                        </InputContainer>
-                      ) : (
-                        <Name>{business?.User.fullName}</Name>
-                      )}
+                      <Name>{business?.User.fullName}</Name>
                       {!editing && (
                         <>
                           {storedUser?.id === Number(id) && (
@@ -411,13 +418,32 @@ export const BusinessProfile: React.FC = () => {
                   />
                 </InputContainer>
 
-                <Select {...registerJob('category')}>
+                <Select defaultValue="default" {...registerJob('category')}>
+                  <option value="default" hidden>
+                    Escolha uma opção
+                  </option>
                   {categories.map((category) => (
                     <option value={category.id} key={category.id}>
                       {category.title}
                     </option>
                   ))}
                 </Select>
+
+                <input
+                  type="checkbox"
+                  id="isRemote"
+                  value="true"
+                  {...registerJob('isRemote')}
+                  style={{ marginBottom: '1rem' }}
+                />
+                <label
+                  htmlFor="isRemote"
+                  id="isRemote"
+                  style={{ marginLeft: '0.2rem' }}
+                >
+                  {' '}
+                  Emprego remoto?
+                </label>
 
                 <Button
                   text="Publicar"
@@ -436,16 +462,22 @@ export const BusinessProfile: React.FC = () => {
                 {business?.Jobs.map((job) => (
                   <JobWrapper key={job.id}>
                     <JobProfileItem
-                      jobTitle={job.title}
-                      jobType={job.jobModality}
+                      job={job}
+                      toogleModal={handleShowModal}
+                      selectJob={handleSelectJob}
                     />
-                    <TrashIcon onClick={() => deleteJob(job.id)} />
+                    {storedUser?.id === Number(id) && (
+                      <TrashIcon onClick={() => deleteJob(job.id)} />
+                    )}
                   </JobWrapper>
                 ))}
+                {business?.Jobs.length === 0 && (
+                  <div style={{ paddingTop: '3rem', paddingBottom: '3rem' }} />
+                )}
               </JobProfileContainer>
             </TabContent>
 
-            {editing && toogleState !== 2 && (
+            {editing && toogleState !== 2 && toogleState !== 3 && (
               <SaveContainer>
                 <Button
                   buttonType="outline"
@@ -480,7 +512,11 @@ export const BusinessProfile: React.FC = () => {
         </FooterContainer>
       </FooterSection>
 
-      <ProfileModal modalIsOpen={showModal} toggleModalFunction={toggleModal} />
+      <JobModal
+        modalIsOpen={showModal}
+        toggleModalFunction={handleShowModal}
+        job={selectedJob}
+      />
     </Wrapper>
   );
 };

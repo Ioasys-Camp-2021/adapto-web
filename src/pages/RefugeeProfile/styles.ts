@@ -8,6 +8,8 @@ import {
   MdAddBox,
 } from 'react-icons/md';
 
+import { FiCameraOff } from 'react-icons/fi';
+import { FaTrash } from 'react-icons/fa';
 import backgroundImage from '../../assets/images/background.png';
 
 export const Wrapper = styled.div`
@@ -51,7 +53,7 @@ export const HeaderContainer = styled.div`
 
 export const ProfileContainer = styled.div``;
 
-export const ProfileImage = styled.img`
+export const ProfileImage = styled.div`
   width: 222px;
   height: 222px;
   border-radius: 8px;
@@ -60,9 +62,18 @@ export const ProfileImage = styled.img`
 
   border: 8px solid #fefefe;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   &:hover {
     cursor: pointer;
   }
+`;
+
+export const NoPhoto = styled(FiCameraOff)`
+  font-size: 3.5rem;
+  color: #999999;
 `;
 
 export const ProfileDetails = styled.div`
@@ -270,10 +281,12 @@ export const AddJob = styled.button`
   border-radius: 1rem;
   background-color: #fefefe;
 
-  width: 206px;
-  height: 149px;
+  width: 100%;
+  height: 88px;
 
   padding: 1rem;
+
+  margin-bottom: 1rem;
 
   display: flex;
   align-items: center;
@@ -290,6 +303,12 @@ export const AddJobIcon = styled(MdAddBox)`
 export const AddJobText = styled.span`
   color: #858585;
   line-height: 1.3rem;
+`;
+
+export const ProjectsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 `;
 
 export const SaveContainer = styled.div`
@@ -315,6 +334,22 @@ export const ErrorMessage = styled.h1`
   margin-top: 80px;
   font-weight: 500;
   font-size: 1.8rem;
+`;
+
+export const DeleteButton = styled.button`
+  position: absolute;
+  top: -0.6rem;
+  right: -0.6rem;
+  background-color: var(--error-700);
+  border-radius: 50%;
+  border: none;
+  font-size: 0;
+  padding: 0.6rem;
+`;
+
+export const DeleteIcon = styled(FaTrash)`
+  font-size: 1.1rem;
+  color: var(--white);
 `;
 
 export const FooterSection = styled.div`

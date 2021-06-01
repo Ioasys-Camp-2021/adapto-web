@@ -20,6 +20,8 @@ type JobParams = {
   categoryId: number;
   title: string;
   description: string;
+  location: string;
+  isRemote: boolean;
   jobModality: string;
   User: {
     fullName: string;

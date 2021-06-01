@@ -9,6 +9,7 @@ import {
 } from 'react-icons/md';
 import { FaTrash } from 'react-icons/fa';
 
+import { FiCameraOff } from 'react-icons/fi';
 import backgroundImage from '../../assets/images/background.png';
 
 export const Wrapper = styled.div`
@@ -52,7 +53,7 @@ export const HeaderContainer = styled.div`
 
 export const ProfileContainer = styled.div``;
 
-export const ProfileImage = styled.img`
+export const ProfileImage = styled.div`
   width: 222px;
   height: 222px;
   border-radius: 8px;
@@ -61,9 +62,18 @@ export const ProfileImage = styled.img`
 
   border: 8px solid #fefefe;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   &:hover {
     cursor: pointer;
   }
+`;
+
+export const NoPhoto = styled(FiCameraOff)`
+  font-size: 3.5rem;
+  color: #999999;
 `;
 
 export const ProfileDetails = styled.div`

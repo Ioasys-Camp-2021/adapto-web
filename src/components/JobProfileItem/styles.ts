@@ -12,6 +12,10 @@ export const JobContainer = styled.div`
   flex-direction: column;
 
   margin-bottom: 1rem;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const JobTitle = styled.h2`

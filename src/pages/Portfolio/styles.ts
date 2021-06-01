@@ -12,8 +12,22 @@ export const Container = styled.div`
   margin: 0 auto;
   margin-top: 3rem;
 
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 1rem;
+  row-gap: 1rem;
+
+  @media (max-width: 1136px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 940px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 720px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 
   @media (max-width: 1120px) {
     padding: 0 2rem;
@@ -42,9 +56,28 @@ export const Title = styled.h1`
   line-height: 5rem;
 `;
 
+export const ErrorContainer = styled.div`
+  width: 100%;
+  height: 300px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const ErrorMessage = styled.h1`
+  margin-top: 80px;
+  font-weight: 500;
+  font-size: 1.8rem;
+`;
+
 export const FooterSection = styled.div`
   margin-top: -9rem;
   background: linear-gradient(180deg, #f3f3f3 0%, #ffe6ce 100%);
+
+  @media (max-width: 840px) {
+    margin-top: -3rem;
+  }
 `;
 
 export const FooterContainer = styled.div`

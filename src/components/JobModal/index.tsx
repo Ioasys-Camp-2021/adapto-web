@@ -17,11 +17,13 @@ type JobParams = {
   categoryId: number;
   title: string;
   description: string;
+  location: string;
+  isRemote: boolean;
   jobModality: string;
-  User: {
+  User?: {
     fullName: string;
   };
-  Category: {
+  Category?: {
     title: string;
   };
 };
@@ -43,13 +45,17 @@ export const JobModal: React.FC<ModalProps> = ({
       <Title>Detalhes da Vaga</Title>
 
       <InputContainer>
-        <Input value={job?.title} disabled />
+        <Input value={job?.title || ''} disabled />
       </InputContainer>
 
-      <Textarea value={job?.description} rows={6} disabled />
+      <Textarea value={job?.description || ''} rows={6} disabled />
 
       <InputContainer>
-        <Input value={job?.jobModality} disabled />
+        <Input value={job?.location || ''} disabled />
+      </InputContainer>
+
+      <InputContainer>
+        <Input value={job?.jobModality || ''} disabled />
       </InputContainer>
     </ModalContent>
   </Container>
