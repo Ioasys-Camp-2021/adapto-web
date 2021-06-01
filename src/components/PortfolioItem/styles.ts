@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { FiCameraOff } from 'react-icons/fi';
+import { BiUser } from 'react-icons/bi';
 
 export const Container = styled(Link)`
   width: 100%;
@@ -39,8 +39,8 @@ export const ProfileImage = styled.div`
   }
 `;
 
-export const NoPhoto = styled(FiCameraOff)`
-  font-size: 1.5rem;
+export const NoPhoto = styled(BiUser)`
+  font-size: 2.2rem;
   color: #777777;
 `;
 

@@ -48,27 +48,30 @@ export const Modal: React.FC<ModalProps> = ({
     resolver: yupResolver(forgotPasswordFormSchema),
   });
 
-  const handleResetPassword = useCallback(async (values) => {
-    try {
-      await api.post('/auth/reset-password', {
-        email1: values.email,
-        email2: values.email,
-      });
+  const handleResetPassword = useCallback(
+    async (values) => {
+      try {
+        await api.post('/auth/reset-password', {
+          email1: values.email,
+          email2: values.email,
+        });
 
-      toast.success('Email de recuperação de senha enviado com sucesso.');
+        toast.success('Email de recuperação de senha enviado com sucesso.');
 
-      toggleModalFunction();
-    } catch (err) {
-      const { status } = err.response;
+        toggleModalFunction();
+      } catch (err) {
+        const { status } = err.response;
 
-      if (status === 422) {
-        toast.error('Falha ao enviar email de recuperação de senha.');
-        return;
+        if (status === 422) {
+          toast.error('Falha ao enviar email de recuperação de senha.');
+          return;
+        }
+
+        toast.error('Erro interno de servidor.');
       }
-
-      toast.error('Erro interno de servidor.');
-    }
-  }, []);
+    },
+    [toggleModalFunction],
+  );
 
   useEffect(() => {
     reset();

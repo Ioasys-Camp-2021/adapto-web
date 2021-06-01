@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -48,8 +48,6 @@ export const Navbar: React.FC<NavbarProps> = ({ solid = false }) => {
     }
   };
 
-  window.addEventListener('scroll', handleChangeBackgroundColor);
-
   const handleSignOut = useCallback(async () => {
     try {
       await signOut();
@@ -61,6 +59,14 @@ export const Navbar: React.FC<NavbarProps> = ({ solid = false }) => {
       toast.error('Falha ao realizar logout.');
     }
   }, [signOut]);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleChangeBackgroundColor);
+
+    return () => {
+      window.removeEventListener('scroll', handleChangeBackgroundColor);
+    };
+  }, []);
 
   return (
     <>

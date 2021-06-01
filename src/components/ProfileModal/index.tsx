@@ -62,39 +62,43 @@ export const ProfileModal: React.FC<ModalProps> = ({
     }
   };
 
-  const handleCreateNewJob = useCallback(async (values) => {
-    if (
-      !values.title ||
-      !values.description ||
-      !values.category ||
-      values.category === 'default'
-    ) {
-      toast.error(
-        'Preencha todas as informações antes de publicar um trabalho.',
-      );
-      return;
-    }
-
-    const data = {
-      title: values.title,
-      description: values.description,
-      categoryId: Number(values.category),
-    };
-
-    try {
-      await api.post('/project', data);
-
-      toast.success('Trabalho enviado com sucesso.');
-      toggleModalFunction();
-    } catch (err) {
-      toast.error('Falha ao enviar esse trabalho.');
-    }
-  }, []);
-
   useEffect(() => {
     reset();
     loadCategories();
   }, [modalIsOpen]);
+
+  const handleCreateNewJob = useCallback(
+    async (values) => {
+      if (
+        !values.title ||
+        !values.description ||
+        !values.category ||
+        values.category === 'default'
+      ) {
+        toast.error(
+          'Preencha todas as informações antes de publicar um trabalho.',
+        );
+        return;
+      }
+
+      const data = {
+        title: values.title,
+        description: values.description,
+        categoryId: Number(values.category),
+      };
+
+      try {
+        await api.post('/project', data);
+
+        toast.success('Trabalho enviado com sucesso.');
+
+        toggleModalFunction();
+      } catch (err) {
+        toast.error('Falha ao enviar esse trabalho.');
+      }
+    },
+    [toggleModalFunction],
+  );
 
   return (
     <Container modalIsOpen={modalIsOpen}>

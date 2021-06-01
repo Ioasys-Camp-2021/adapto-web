@@ -154,10 +154,6 @@ export const RefugeeProfile: React.FC = () => {
 
   const toggleModal = () => {
     setShowModal(!showModal);
-
-    if (!showModal) {
-      loadProjects();
-    }
   };
 
   const loadProjects = async () => {
@@ -231,8 +227,11 @@ export const RefugeeProfile: React.FC = () => {
 
   useEffect(() => {
     loadUserData();
-    loadProjects();
   }, []);
+
+  useEffect(() => {
+    loadProjects();
+  }, [showModal]);
 
   const handleChangeData = useCallback(async (values) => {
     const data = {

@@ -18,7 +18,7 @@ export const Container = styled.div<{ modalIsOpen: boolean }>`
     padding: 1rem 1rem;
   }
 
-  z-index: 999999;
+  z-index: 100;
 `;
 
 export const ModalCloseButton = styled(BsX)`

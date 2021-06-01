@@ -105,7 +105,7 @@ export const Sidebar = styled.aside`
   z-index: 99999999;
 
   @media (max-width: 540px) {
-    width: 80%;
+    width: 70%;
   }
 `;
 

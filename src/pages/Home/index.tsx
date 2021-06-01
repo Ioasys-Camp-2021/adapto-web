@@ -14,8 +14,6 @@ import {
   DotsRight,
   SectionContainer,
   SectionTitle,
-  CarouselSection,
-  CarouselWrapper,
   GridContainer,
   LaborMarketSection,
   LaborMarketContainer,
@@ -36,7 +34,6 @@ import {
 
 import { Navbar } from '../../components/Navbar';
 import { DifferentialsItem } from '../../components/DifferentialsItem';
-import { CarouselItem } from '../../components/CarouselItem';
 
 import { Footer } from '../../components/Footer';
 
@@ -89,7 +86,7 @@ export const Home: React.FC = () => {
         <Container>
           <Title>Apoie a diversidade</Title>
           <Subtitle>e invista na inclusão!</Subtitle>
-          <JobsLink href="#jobs">Ver trabalhos</JobsLink>
+          <JobsLink to="/portfolio">Ver trabalhos</JobsLink>
         </Container>
 
         <BackgroundImage src={homeImg} alt="Adapto e Incluso" />
@@ -109,16 +106,6 @@ export const Home: React.FC = () => {
           </GridContainer>
         </SectionContainer>
       </DifferentialsSection>
-
-      <CarouselSection id="jobs">
-        <SectionContainer>
-          <SectionTitle>Exposição de Trabalhos</SectionTitle>
-
-          <CarouselWrapper>
-            <CarouselItem />
-          </CarouselWrapper>
-        </SectionContainer>
-      </CarouselSection>
 
       <LaborMarketSection>
         <LaborMarketContainer>

@@ -8,7 +8,7 @@ import {
   MdAddBox,
 } from 'react-icons/md';
 
-import { FiCameraOff } from 'react-icons/fi';
+import { BiUser } from 'react-icons/bi';
 import { FaTrash } from 'react-icons/fa';
 import backgroundImage from '../../assets/images/background.png';
 
@@ -78,8 +78,8 @@ export const ProfileImage = styled.div`
   }
 `;
 
-export const NoPhoto = styled(FiCameraOff)`
-  font-size: 3.5rem;
+export const NoPhoto = styled(BiUser)`
+  font-size: 9rem;
   color: #999999;
 `;
 

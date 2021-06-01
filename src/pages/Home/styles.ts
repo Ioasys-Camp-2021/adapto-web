@@ -78,7 +78,7 @@ export const Subtitle = styled.span`
   }
 `;
 
-export const JobsLink = styled.a`
+export const JobsLink = styled(Link)`
   width: 200px;
   height: 56px;
   border-radius: 1rem;
@@ -175,17 +175,6 @@ export const GridContainer = styled.div`
   @media (max-width: 640px) {
     grid-template-columns: repeat(1, 1fr);
   }
-`;
-
-export const CarouselSection = styled.section`
-  width: 100%;
-  background-color: #f3f3f3;
-`;
-
-export const CarouselWrapper = styled.div`
-  margin-top: -1.4rem;
-  display: flex;
-  flex-direction: row;
 `;
 
 export const LaborMarketSection = styled.section`

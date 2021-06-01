@@ -19,7 +19,7 @@ import { Navbar } from '../../components/Navbar';
 import { api } from '../../services/api';
 import { PortfolioItem } from '../../components/PortfolioItem';
 
-type User = {
+type UserData = {
   id: number;
   userId: number;
   title: string;
@@ -33,10 +33,15 @@ type User = {
   linkedin: string;
   facebook: string;
   instagram: string;
+  User: {
+    firstName: string;
+    fullName: string;
+    id: number;
+  };
 };
 
 export const Portfolio: React.FC = () => {
-  const [users, setUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState<UserData[]>([]);
   const [error, setError] = useState('');
 
   const loadUsers = async () => {

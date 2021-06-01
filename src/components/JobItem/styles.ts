@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { FiArchive, FiCameraOff } from 'react-icons/fi';
+import { FiArchive } from 'react-icons/fi';
+import { BsBuilding } from 'react-icons/bs';
 
 export const Container = styled.div`
   width: 100%;
@@ -53,12 +54,12 @@ export const BusinessLink = styled(Link)`
   }
 `;
 
-export const BusinessLogo = styled(FiCameraOff)`
-  font-size: 1.5rem;
+export const BusinessLogo = styled(BsBuilding)`
+  font-size: 2rem;
   color: #777777;
 
   @media (max-width: 480px) {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
   }
 `;
 

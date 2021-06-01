@@ -11,7 +11,7 @@ import {
   Bio,
 } from './styles';
 
-type User = {
+type UserData = {
   id: number;
   userId: number;
   title: string;
@@ -25,10 +25,15 @@ type User = {
   linkedin: string;
   facebook: string;
   instagram: string;
+  User: {
+    firstName: string;
+    fullName: string;
+    id: number;
+  };
 };
 
 type PorfolioItemProps = {
-  user: User;
+  user: UserData;
 };
 
 export const PortfolioItem: React.FC<PorfolioItemProps> = ({ user }) => (
@@ -39,7 +44,7 @@ export const PortfolioItem: React.FC<PorfolioItemProps> = ({ user }) => (
       </ProfileImage>
 
       <Details>
-        <Name>{user.title ? user.title : 'Sem dados'}</Name>
+        <Name>{user.User.fullName ? user.User.fullName : 'Sem dados'}</Name>
         <Title>{user.title ? user.title : 'Sem dados'}</Title>
       </Details>
     </DetailContainer>
