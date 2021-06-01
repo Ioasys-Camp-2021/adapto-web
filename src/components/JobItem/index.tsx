@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 
 import {
@@ -12,21 +13,56 @@ import {
   JobIcon,
 } from './styles';
 
-export const JobItem: React.FC = () => (
-  <Container>
-    <Details>
-      <BusinessLink to="/">
-        <BusinessLogo />
-      </BusinessLink>
+type JobParams = {
+  id: number;
+  userId: number;
+  enterpriseId: number;
+  categoryId: number;
+  title: string;
+  description: string;
+  jobModality: string;
+  User: {
+    fullName: string;
+  };
+  Category: {
+    title: string;
+  };
+};
 
-      <DetailContainer>
-        <Title>Analista de sistemas</Title>
-        <Description>CLT</Description>
-      </DetailContainer>
-    </Details>
+type JobProps = {
+  job: JobParams;
+  toogleModal: () => void;
+  selectJob: (job: JobParams) => void;
+};
 
-    <JobLink to="/">
-      <JobIcon />
-    </JobLink>
-  </Container>
-);
+export const JobItem: React.FC<JobProps> = ({
+  job,
+  toogleModal,
+  selectJob,
+}) => {
+  const handleClick = () => {
+    selectJob(job);
+    toogleModal();
+  };
+
+  return (
+    <>
+      <Container>
+        <Details>
+          <BusinessLink to={`/business/profile/${job.userId}`}>
+            <BusinessLogo />
+          </BusinessLink>
+
+          <DetailContainer>
+            <Title>{job.title}</Title>
+            <Description>{job.jobModality}</Description>
+          </DetailContainer>
+        </Details>
+
+        <JobLink onClick={handleClick}>
+          <JobIcon />
+        </JobLink>
+      </Container>
+    </>
+  );
+};

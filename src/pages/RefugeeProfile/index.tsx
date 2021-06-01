@@ -4,6 +4,8 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
+import { Helmet } from 'react-helmet-async';
+
 import { toast } from 'react-toastify';
 import { useParams } from 'react-router-dom';
 import { Navbar } from '../../components/Navbar';
@@ -141,26 +143,28 @@ export const RefugeeProfile: React.FC = () => {
       } else {
         setError('');
 
-        const currentuser = response.data[0];
-        setUser(currentuser);
+        const currentUser = response.data[0];
+        setUser(currentUser);
 
-        setValue('title', currentuser ? currentuser.title : '');
+        setValue('fullName', currentUser ? currentUser.User.fullName : '');
 
-        setValue('bio', currentuser ? currentuser.bio : '');
-        setValue('location', currentuser ? currentuser.location : '');
-        setValue('languages', currentuser ? currentuser.languages : '');
-        setValue('jobModality', currentuser ? currentuser.job_modality : '');
-        setValue('contact', currentuser ? currentuser.contact : '');
+        setValue('title', currentUser ? currentUser.title : '');
+
+        setValue('bio', currentUser ? currentUser.bio : '');
+        setValue('location', currentUser ? currentUser.location : '');
+        setValue('languages', currentUser ? currentUser.languages : '');
+        setValue('jobModality', currentUser ? currentUser.job_modality : '');
+        setValue('contact', currentUser ? currentUser.contact : '');
 
         setValue(
           'workExperience',
-          currentuser ? currentuser.work_experiences : '',
+          currentUser ? currentUser.work_experiences : '',
         );
 
-        setValue('linkedin', currentuser ? currentuser.linkedin : '');
-        setValue('instagram', currentuser ? currentuser.instagram : '');
-        setValue('facebook', currentuser ? currentuser.facebook : '');
-        setValue('website', currentuser ? currentuser.website : '');
+        setValue('linkedin', currentUser ? currentUser.linkedin : '');
+        setValue('instagram', currentUser ? currentUser.instagram : '');
+        setValue('facebook', currentUser ? currentUser.facebook : '');
+        setValue('website', currentUser ? currentUser.website : '');
       }
     } catch (err) {
       setError('Não foi possível encontrar esse refugiado.');
@@ -204,6 +208,14 @@ export const RefugeeProfile: React.FC = () => {
   return (
     <Wrapper>
       <Navbar solid />
+
+      <Helmet>
+        <title>Perfil | Adapto</title>
+        <meta
+          name="description"
+          content="Descrição padrão para essa tela para melhorar a indexação da página nos crawlers."
+        />
+      </Helmet>
 
       {error ? (
         <ErrorContainer>
@@ -332,7 +344,7 @@ export const RefugeeProfile: React.FC = () => {
                   <InputContainer>
                     <Mail />
                     <Input
-                      type="text"
+                      type="email"
                       placeholder="Contato"
                       disabled={!editing}
                       {...register('contact')}
@@ -382,10 +394,12 @@ export const RefugeeProfile: React.FC = () => {
             </TabContent>
 
             <TabContent active={toogleState === 3}>
-              <AddJob onClick={toggleModal}>
-                <AddJobIcon />
-                <AddJobText>Adicionar um trabalho</AddJobText>
-              </AddJob>
+              {storedUser?.id === Number(id) && (
+                <AddJob onClick={toggleModal}>
+                  <AddJobIcon />
+                  <AddJobText>Adicionar um trabalho</AddJobText>
+                </AddJob>
+              )}
             </TabContent>
 
             <TabContent active={toogleState === 4}>

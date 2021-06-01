@@ -6,6 +6,7 @@ export const Wrapper = styled.fieldset`
   width: 100%;
   border: none;
   margin-bottom: 12px;
+  border-radius: 16px;
 `;
 
 export const Label = styled.label``;

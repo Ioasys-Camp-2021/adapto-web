@@ -78,7 +78,7 @@ export const Subtitle = styled.span`
   }
 `;
 
-export const JobsLink = styled(Link)`
+export const JobsLink = styled.a`
   width: 200px;
   height: 56px;
   border-radius: 1rem;

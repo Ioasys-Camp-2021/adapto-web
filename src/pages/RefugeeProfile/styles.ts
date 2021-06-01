@@ -8,6 +8,8 @@ import {
   MdAddBox,
 } from 'react-icons/md';
 
+import backgroundImage from '../../assets/images/background.png';
+
 export const Wrapper = styled.div`
   background-color: #f3f3f3;
 `;
@@ -29,6 +31,11 @@ export const BackgroundImage = styled.header`
   width: 100%;
   height: 368px;
   background-color: #d6d6d6;
+
+  background-image: url(${backgroundImage});
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 
   position: relative;
 `;

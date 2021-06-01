@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { FiMenu } from 'react-icons/fi';
+import { BsX } from 'react-icons/bs';
 
 export const Nav = styled.nav<{ scrolled: boolean }>`
   width: 100%;
@@ -60,16 +62,74 @@ export const NavRight = styled.div`
   justify-content: center;
 `;
 
-export const SearchIcon = styled.img`
-  margin-right: 2.5rem;
+export const MenuButton = styled.button`
+  @media (min-width: 990px) {
+    display: none;
+  }
+
+  font-size: 0;
+  border: none;
+  background-color: transparent;
+`;
+
+export const MenuIcon = styled(FiMenu)`
+  font-size: 1.8rem;
+  color: var(--caramel-800);
+`;
+
+export const Sidebar = styled.div`
+  @media (min-width: 990px) {
+    display: none;
+  }
+
+  width: 340px;
+  background-color: #fefefe;
+  height: 100vh;
+  position: fixed;
+
+  right: 0;
+  z-index: 99999999;
+
+  @media (max-width: 540px) {
+    width: 80%;
+  }
+`;
+
+export const SidebarContainer = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100vh;
+
+  padding: 2rem;
+  padding-top: 5rem;
+
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+`;
+
+export const SidebarCloseButton = styled(BsX)`
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  font-size: 2rem;
 
   &:hover {
     cursor: pointer;
   }
+`;
 
-  @media (max-width: 990px) {
-    display: none;
-  }
+export const SidebarLink = styled(Link)`
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--blue-800);
+`;
+
+export const SmallContainer = styled.div`
+  margin-top: 2rem;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
 `;
 
 export const LoginButton = styled(Link)`
@@ -119,5 +179,51 @@ export const SignOutButton = styled.button`
 
   @media (max-width: 990px) {
     display: none;
+  }
+`;
+
+export const SidebarLoginButton = styled(Link)`
+  width: 140px;
+  height: 48px;
+  border-radius: 1rem;
+  background-color: transparent;
+
+  color: var(--caramel-800);
+  border: 1px solid var(--caramel-800);
+
+  font-size: 1.1rem;
+  font-weight: 500;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 0.4rem;
+
+  &:focus {
+    border: 1px solid var(--caramel-800);
+  }
+`;
+
+export const SidebarSignOutButton = styled.button`
+  width: 140px;
+  height: 48px;
+  border-radius: 1rem;
+  background-color: transparent;
+
+  color: var(--caramel-800);
+  border: 1px solid var(--caramel-800);
+
+  font-size: 1.1rem;
+  font-weight: 500;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 0.4rem;
+
+  &:focus {
+    border: 1px solid var(--caramel-800);
   }
 `;

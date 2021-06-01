@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { FiArrowRight } from 'react-icons/fi';
+import { FiArchive } from 'react-icons/fi';
 
 export const Container = styled.div`
   width: 100%;
@@ -43,14 +43,18 @@ export const Title = styled.h2`
 
 export const Description = styled.span``;
 
-export const JobLink = styled(Link)`
+export const JobLink = styled.div`
   padding: 1rem;
   background-color: var(--blue-500);
   border-radius: 50%;
   font-size: 0;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
-export const JobIcon = styled(FiArrowRight)`
+export const JobIcon = styled(FiArchive)`
   font-size: 1.5rem;
   color: var(--white);
 `;

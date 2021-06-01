@@ -89,7 +89,7 @@ export const Home: React.FC = () => {
         <Container>
           <Title>Apoie a diversidade</Title>
           <Subtitle>e invista na inclusão!</Subtitle>
-          <JobsLink to="/">Ver trabalhos</JobsLink>
+          <JobsLink href="#jobs">Ver trabalhos</JobsLink>
         </Container>
 
         <BackgroundImage src={homeImg} alt="Adapto e Incluso" />
@@ -110,7 +110,7 @@ export const Home: React.FC = () => {
         </SectionContainer>
       </DifferentialsSection>
 
-      <CarouselSection>
+      <CarouselSection id="jobs">
         <SectionContainer>
           <SectionTitle>Exposição de Trabalhos</SectionTitle>
 
