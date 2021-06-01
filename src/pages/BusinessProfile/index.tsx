@@ -170,6 +170,7 @@ export const BusinessProfile: React.FC = () => {
         setError('');
 
         const currentBusiness = response.data[0];
+        currentBusiness.Jobs.reverse();
         setBusiness(currentBusiness);
 
         setValue(

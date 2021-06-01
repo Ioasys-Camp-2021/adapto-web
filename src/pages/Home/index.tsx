@@ -125,8 +125,8 @@ export const Home: React.FC = () => {
             </SectionContent>
 
             <ButtonsContainer>
-              <LaborMarketSolidButton to="/">
-                Divulgar vaga
+              <LaborMarketSolidButton to="/jobs">
+                Ver vagas
               </LaborMarketSolidButton>
               <LaborMarketOutlineButton to="/portfolio">
                 Ver trabalhos

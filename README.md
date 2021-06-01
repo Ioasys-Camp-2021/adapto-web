@@ -30,9 +30,9 @@ O style guide e a aplicação foram planejados/prototipados no [Figma](https://w
 
 ## Projeto
 
-Aqui viria um pequeno texto para explicar o projeto e sua ideia central (conversar com a Samy a respeito desse texto).
+Adapto e Incluso é uma iniciativa que visa inserir refugiados no mercado de trabalho. Isso seria através do contato entre refugiados e as empresas, dessa forma, permite o primeiro grupo divulgue seu portfólio, trabalhos e experiências; e o segundo grupo divulgue a empresa e as vagas que estão em aberto, visando conectar diretamente com os refugiados cadastrados na plataforma.
 
-O site está no ar e pode ser acessado clicando [aqui](https://vinisilvag-ioasys.netlify.app/).
+O site está no ar e pode ser acessado clicando [aqui](https://adapto-web.netlify.app/).
 
 Nota: O deploy foi feito de forma gratuita no Netlify. Por isso, pode ser que sejam encontrados alguns problemas ao longo do uso da aplicação, principalmente com relação aos processos de autenticação do usuário. Dessa forma, aconselho que, para a melhor experiência no site, o projeto seja executado localmente, através do guia da sessão de setup do [ambiente de desenvolvimento](#iniciando-o-ambiente-de-desenvolvimento).
 
