@@ -35,8 +35,8 @@ export const Footer: React.FC = () => (
 
       <FooterLink to="/">Home</FooterLink>
       <FooterLink to="/about">Sobre nós</FooterLink>
-      <FooterLink to="/">Refugiados</FooterLink>
-      <FooterLink to="/">Para Empresas</FooterLink>
+      <FooterLink to="/portfolio">Portifólio</FooterLink>
+      <FooterLink to="/jobs">Vagas</FooterLink>
       <FooterLink to="/register">Criar conta</FooterLink>
       <FooterLink to="/login">Entrar</FooterLink>
     </FooterItemWrapper>
@@ -51,7 +51,7 @@ export const Footer: React.FC = () => (
     <FooterItemWrapper>
       <FooterTitle>Nossas redes sociais</FooterTitle>
 
-      <SocialMediaLink href="https://www.instagram.com/" target="_blank">
+      <SocialMediaLink href="https://www.linkedin.com/feed/" target="_blank">
         <img src={linkedinImg} alt="LinkedIn" />
         adapto-e-incluso
       </SocialMediaLink>
@@ -61,7 +61,7 @@ export const Footer: React.FC = () => (
         @adaptoeincluso
       </SocialMediaLink>
 
-      <SocialMediaLink href="https://www.instagram.com/" target="_blank">
+      <SocialMediaLink href="https://www.facebook.com/" target="_blank">
         <img src={facebookImg} alt="Facebook" />
         @adaptoeincluso
       </SocialMediaLink>

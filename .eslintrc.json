@@ -45,6 +45,7 @@
     "implicit-arrow-linebreak": "off",
     "react/jsx-curly-newline": "off",
     "no-param-reassign": "off",
-    "no-nested-ternary": "off"
+    "no-nested-ternary": "off",
+    "camelcase": "off"
   }
 }

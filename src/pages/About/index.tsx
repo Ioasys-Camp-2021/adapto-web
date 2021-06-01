@@ -54,7 +54,7 @@ export const About: React.FC = () => {
         <title>Sobre | Adapto</title>
         <meta
           name="description"
-          content="Descrição padrão para essa tela para melhorar a indexação da página nos crawlers."
+          content="Conheça mais sobre a iniciativa Adapto, seus diferenciais e todo o ambiente que envolve a nossa causa."
         />
       </Helmet>
 

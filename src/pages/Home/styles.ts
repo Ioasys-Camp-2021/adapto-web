@@ -78,7 +78,7 @@ export const Subtitle = styled.span`
   }
 `;
 
-export const JobsLink = styled(Link)`
+export const JobsLink = styled.a`
   width: 200px;
   height: 56px;
   border-radius: 1rem;
@@ -371,7 +371,7 @@ export const FooterCardImage = styled.img`
 export const FooterCardText = styled.h4`
   color: var(--caramel-800);
   font-size: 2.2rem;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 3rem;
 
   @media (max-width: 540px) {

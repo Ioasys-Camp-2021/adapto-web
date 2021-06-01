@@ -20,6 +20,7 @@ export const Route: React.FC<RouteProps> = ({
   ...rest
 }) => {
   const { user } = useAuth();
+  const path = `/${user?.role}/profile/${user?.id}`;
 
   return (
     <ReactDOMRoute
@@ -30,7 +31,7 @@ export const Route: React.FC<RouteProps> = ({
         ) : (
           <Redirect
             to={{
-              pathname: isPrivate ? '/' : '/app',
+              pathname: isPrivate ? '/' : path,
               state: { from: location },
             }}
           />

@@ -18,7 +18,7 @@ export const Container = styled.div<{ modalIsOpen: boolean }>`
     padding: 1rem 1rem;
   }
 
-  z-index: 999999;
+  z-index: 100;
 `;
 
 export const ModalCloseButton = styled(BsX)`
@@ -34,7 +34,7 @@ export const ModalCloseButton = styled(BsX)`
 
 export const ModalContent = styled.section`
   position: relative;
-  max-width: 548px;
+  max-width: 728px;
   width: 100%;
   background-color: #ffffff;
   border-radius: 1rem;
@@ -50,24 +50,58 @@ export const ModalContent = styled.section`
   }
 `;
 
-export const ContentWrapper = styled.div`
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-
-  form {
-    width: 100%;
-    margin-top: 2rem;
-  }
-`;
-
-export const ModalTitle = styled.h1`
-  font-size: 2rem;
+export const Title = styled.h2`
   font-weight: 500;
-  color: var(--black);
   margin-bottom: 1.5rem;
 `;
 
-export const ModalText = styled.p`
-  margin-top: -1rem;
+export const InputContainer = styled.div`
+  background-color: #fefefe;
+  border: 1.5px solid #bbbbbb;
+  border-radius: 16px;
+  padding: 12px 16px;
+  margin-bottom: 0.8rem;
+
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+
+  color: var(--black);
+
+  &:hover {
+    border-color: #858585;
+  }
+
+  &:focus-within {
+    border-color: var(--caramel-400);
+  }
+`;
+
+export const Input = styled.input`
+  width: 100%;
+  border: none;
+  outline: none;
+  background-color: transparent;
+`;
+
+export const Textarea = styled.textarea`
+  width: 100%;
+  resize: none;
+  border-radius: 16px;
+  outline: none;
+  padding: 0.8rem 1rem;
+  margin-bottom: 0.4rem;
+
+  color: var(--black);
+
+  border: 1px solid #bbbbbb;
+  background-color: #fefefe;
+
+  &:hover {
+    border-color: #858585;
+  }
+
+  &:focus {
+    border-color: var(--caramel-400);
+  }
 `;

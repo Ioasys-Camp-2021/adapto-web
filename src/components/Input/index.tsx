@@ -26,13 +26,13 @@ type InputProps = InputHTMLAttributes<HTMLInputElement> & {
 };
 
 const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
-  { label, labelFor, icon, error, passwordInput, ...rest },
+  { label, labelFor, icon, error, passwordInput, style, ...rest },
   ref,
 ) => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <Wrapper>
+    <Wrapper style={style}>
       {!!label && <Label htmlFor={labelFor}>{label}</Label>}
 
       <Container hasError={!!error}>
