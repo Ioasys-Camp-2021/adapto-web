@@ -41,7 +41,9 @@ export const JobVacancies: React.FC = () => {
     try {
       const response = await api.get('/job');
 
-      setJobs(response.data.data);
+      if (response.data.data) {
+        setJobs(response.data.data);
+      }
     } catch (err) {
       console.log(err);
       toast.error('Falha ao carregar as vagas cadastradas.');

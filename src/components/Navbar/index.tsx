@@ -71,7 +71,7 @@ export const Navbar: React.FC<NavbarProps> = ({ solid = false }) => {
             </Link>
 
             <NavLink to="/about">Sobre nós</NavLink>
-            <NavLink to="/">Portfólio</NavLink>
+            <NavLink to="/portfolio">Portifólio</NavLink>
             <NavLink to="/jobs">Vagas</NavLink>
           </NavLeft>
 
@@ -103,7 +103,7 @@ export const Navbar: React.FC<NavbarProps> = ({ solid = false }) => {
             <SidebarCloseButton onClick={toogleSideBar} />
 
             <SidebarLink to="/about">Sobre nós</SidebarLink>
-            <SidebarLink to="/">Portfólio</SidebarLink>
+            <SidebarLink to="/portfolio">Portifólio</SidebarLink>
             <SidebarLink to="/jobs">Vagas</SidebarLink>
 
             <SmallContainer>

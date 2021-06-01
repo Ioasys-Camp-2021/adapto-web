@@ -9,6 +9,7 @@ import { ResetPassword } from '../pages/ResetPassword';
 import { Home } from '../pages/Home';
 import { About } from '../pages/About';
 import { JobVacancies } from '../pages/JobVacancies';
+import { Portfolio } from '../pages/Portfolio';
 
 import { RefugeeProfile } from '../pages/RefugeeProfile';
 import { BusinessProfile } from '../pages/BusinessProfile';
@@ -27,6 +28,7 @@ const Routes: React.FC = () => (
       <Route path="/" component={Home} exact isPublic />
       <Route path="/about" component={About} isPublic />
       <Route path="/jobs" component={JobVacancies} isPublic />
+      <Route path="/portfolio" component={Portfolio} isPublic />
 
       <Route path="/refugee/profile/:id" component={RefugeeProfile} isPublic />
       <Route

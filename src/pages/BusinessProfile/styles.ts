@@ -182,6 +182,16 @@ export const Textarea = styled.textarea`
   }
 `;
 
+export const Select = styled.select`
+  width: 100%;
+  outline: none;
+  background-color: #fefefe;
+  border: 1.5px solid #bbbbbb;
+  border-radius: 16px;
+  padding: 12px 10px;
+  margin-bottom: 0.8rem;
+`;
+
 export const InputContainer = styled.div`
   background-color: #fefefe;
   border: 1.5px solid #bbbbbb;
@@ -323,8 +333,18 @@ export const JobProfileContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 
   width: 100%;
+`;
+
+export const JobWrapper = styled.div`
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
 `;
 
 export const TrashIcon = styled(FaTrash)`

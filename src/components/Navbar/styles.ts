@@ -101,7 +101,7 @@ export const SidebarContainer = styled.div`
   height: 100vh;
 
   padding: 2rem;
-  padding-top: 5rem;
+  padding-top: 4rem;
 
   display: flex;
   align-items: flex-end;
@@ -120,13 +120,13 @@ export const SidebarCloseButton = styled(BsX)`
 `;
 
 export const SidebarLink = styled(Link)`
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 500;
   color: var(--blue-800);
 `;
 
 export const SmallContainer = styled.div`
-  margin-top: 2rem;
+  margin-top: 1rem;
   display: flex;
   align-items: flex-end;
   flex-direction: column;

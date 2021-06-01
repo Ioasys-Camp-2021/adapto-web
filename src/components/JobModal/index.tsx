@@ -46,7 +46,7 @@ export const JobModal: React.FC<ModalProps> = ({
         <Input value={job?.title} disabled />
       </InputContainer>
 
-      <Textarea value={job?.description} disabled />
+      <Textarea value={job?.description} rows={6} disabled />
 
       <InputContainer>
         <Input value={job?.jobModality} disabled />
