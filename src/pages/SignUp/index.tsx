@@ -163,7 +163,7 @@ export const SignUp: React.FC = () => {
               </form>
 
               <SignInContainer>
-                <SignInButton to="/">Já tenho uma conta</SignInButton>
+                <SignInButton to="/login">Já tenho uma conta</SignInButton>
               </SignInContainer>
             </>
           ) : (
